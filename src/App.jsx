@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ForgotPassword from "./pages/ForgotPassword";
 import SignleProductPage from "./pages/SignleProductPage";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="AdminDashboard" element={<AdminDashboard />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/signle-product" element={<> <Header /><SignleProductPage /><Footer /> </>} />
+        <Route path="/checkout" element={<> <Header /><Checkout /><Footer /> </>} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </>

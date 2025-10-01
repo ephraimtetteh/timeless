@@ -30,7 +30,7 @@ const SignleProductPage = () => {
                 </small>
             </article>
             <article className='grid py-8'>
-                <button className='flex  items-center gap-3 bg-pink-400 py-4 px-8 text-white text-2xl'>
+                <button className='flex  items-center gap-3 bg-pink-400 py-4 px-8 text-white text-2xl justify-center'>
                 <FaArrowRight />
                     Place Order
                 </button>

@@ -12,12 +12,12 @@ const productData = [
 const ProductCard = ({ img, title, text, price }) => {
   return (
     // Card container: white background, rounded corners, subtle shadow, centered text
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-5 flex flex-col items-center text-center max-w-sm mx-auto border border-gray-100">
+    <div className="bg-white rounded-xl hover:shadow-xl transition-shadow duration-300 p-5 flex flex-col items-center text-center max-w-sm m-auto border border-gray-100">
 
       {/* Image container */}
       <div className="w-full mb-4 overflow-hidden rounded-lg">
         <img
-          className="rounded-lg w-full h-56 object-cover transition-transform duration-300 hover:scale-105"
+          className="rounded-lg w-full h-56 object-cover object-center transition-transform duration-300 hover:scale-105"
           src={img} 
           alt={title}
           // Fallback image in case the placehold.co link fails
@@ -56,11 +56,11 @@ const ProductCard = ({ img, title, text, price }) => {
 const App = () => {
   return (
     
-    <div className="min-h-screen bg-gray-50 p-4 md:p-10">
+    <div className="min-h-screen bg-gray-50 py-4 md:p-10">
       <div className=" max-w-9xl mx-auto px-10">
         
         {/* Header/Title Section */}
-          <div className="flex justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  ">
+          <div className="hidden lg:flex justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  ">
           <div className=" font-bold tracking-tighter">
             <h2 className="text-lg hover:text-pink-700 hover:border-b-2">
               OUR TOP PRODUCTS

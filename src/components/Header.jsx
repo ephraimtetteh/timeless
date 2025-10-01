@@ -32,7 +32,9 @@ const Header = () => {
             <VscAccount className="text-xl text-pink-700" />
           </Link>
           <span className="hover:text-pink-600">
-            <FiShoppingCart className="text-xl font-extrabold" />
+            <Link to={'/checkout'}>
+              <FiShoppingCart className="text-xl font-extrabold" />
+            </Link>
           </span>
           {/* Mobile Menu Button */}
           <button
