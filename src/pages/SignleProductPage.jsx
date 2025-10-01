@@ -4,7 +4,7 @@ import { FaArrowRight, FaFacebookF, FaInstagram, FaTwitter    } from "react-icon
 
 const SignleProductPage = () => {
   return (
-    <div className=' lg:grid lg:grid-cols-3 items-start justify-start gap-4 lg:px-20 py-10 px-6'>
+    <div className=' lg:grid lg:grid-cols-3 items-start justify-start gap-4 lg:px-20 py-40 px-6'>
         {/* left side */}
         <div className='px-6'>
             <img src={productImages.gisade} alt="" />
