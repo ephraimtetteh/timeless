@@ -40,7 +40,7 @@ const Header = () => {
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
-            <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+            <svg width="18" height="28" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
           </button>
@@ -49,7 +49,7 @@ const Header = () => {
 
       {/* Mobile Nav */}
       {menuOpen && (
-        <nav className="md:hidden bg-pink-100 px-4 pb-4">
+        <nav className="md:hidden bg-pink-100 px-4 pb-4 justify-center items-center">
           <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">Bestsellers</Link>
           <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">New Scents</Link>
           <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">Featured</Link>
