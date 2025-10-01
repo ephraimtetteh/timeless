@@ -1,41 +1,62 @@
 import { FiShoppingCart } from "react-icons/fi";
 import { VscAccount } from "react-icons/vsc";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <div className=" flex  items-center px-4 py-2 w-full h-12 justify-between bg-pink-500/50 cursor-pointer  text-gray-900 ">
-      {/* Left side */}
-      <div className="flex items-center ">
-        <Link
-          className="font-bold text-xl hover:text-pink-600 tracking-tighter"
-          to={"/"}
-        >
-     TIMELESS
+    <header className="w-full bg-pink-100 text-gray-900 fixed top-0 left-0 z-50 shadow">
+      <div className="flex items-center justify-between px-4 md:px-20  py-2">
+        {/* Logo */}
+        <Link to="/" className="flex items-center">
+          <img
+            className="w-12 "
+            src="/TM-logo.jpg"
+            alt="Timeless Perfume Logo"
+          />
         </Link>
-      </div>
 
-      {/* Left side */}
-      <div className="flex items-center gap-4 font-bold ">
-        <p className="hover:text-pink-700">Bestsellers</p>
-        <p className="hover:text-pink-700">New Scents</p>
-        <p className="hover:text-pink-700">Featured</p>
-        <p className="hover:text-pink-700">About Us</p>
-      </div>
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-10">
+          <Link to="#" className="hover:text-pink-700 hover:border-b-2">Bestsellers</Link>
+          <Link to="#" className="hover:text-pink-700 hover:border-b-2">New Scents</Link>
+          <Link to="#" className="hover:text-pink-700 hover:border-b-2">Featured</Link>
+          <Link to="#" className="hover:text-pink-700 hover:border-b-2">About Us</Link>
+        </nav>
 
-      {/* Right side */}
-      <div className="flex gap-2 items-center ">
-        <Link to={"/signup"}>
-          <span className=" hover:text-pink-600">
+        {/* Right Side */}
+        <div className="flex items-center gap-6">
+          <Link to="/signup" className="hover:text-pink-600">
             <VscAccount className="text-xl text-pink-700" />
+          </Link>
+          <span className="hover:text-pink-600">
+            <FiShoppingCart className="text-xl font-extrabold" />
           </span>
-        </Link>
-
-        <span className=" hover:text-pink-600">
-          <FiShoppingCart  className="text-xl font-extrabold" />
-        </span>
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden ml-2 text-pink-700"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+        </div>
       </div>
-    </div>
+
+      {/* Mobile Nav */}
+      {menuOpen && (
+        <nav className="md:hidden bg-pink-100 px-4 pb-4">
+          <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">Bestsellers</Link>
+          <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">New Scents</Link>
+          <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">Featured</Link>
+          <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">About Us</Link>
+        </nav>
+      )}
+    </header>
   );
 };
 
