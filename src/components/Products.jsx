@@ -5,14 +5,6 @@ const productData = [
   { img: "/Perfume2.jpg", title: "Chanel Perfume", text: "Balance pH and prep skin for ultimate moisture.", price: "$28.00" },
   { img: "/Perfume3.jpg", title: "Prada Perfume", text: "Wake up to smoother, firmer-looking skin.", price: "$49.00" },
   { img: "/Perfume1.jpg", title: "Hydra Cream", text: "Deep hydration that lasts all day without grease.", price: "$32.00" },
-  { img: "/Perfume3.jpg", title: "Prada Perfume", text: "Boost radiance and even out skin tone.", price: "$40.00" },
-  { img: "/Perfume1.jpg", title: "Brightening Perfume", text: "Detoxify pores and control excess oil.", price: "$22.00" },
-  { img: "/Perfume3.jpg", title: "Prada Perfume", text: "Boost radiance and even out skin tone.", price: "$40.00" },
-  { img: "/Perfume1.jpg", title: "Brightening Perfume", text: "Detoxify pores and control excess oil.", price: "$22.00" },
-  { img: "/Perfume3.jpg", title: "Prada Perfume", text: "Boost radiance and even out skin tone.", price: "$40.00" },
-  { img: "/Perfume1.jpg", title: "Brightening Perfume", text: "Detoxify pores and control excess oil.", price: "$22.00" },
-  { img: "/Perfume3.jpg", title: "Prada Perfume", text: "Boost radiance and even out skin tone.", price: "$40.00" },
-  { img: "/Perfume1.jpg", title: "Brightening Perfume", text: "Detoxify pores and control excess oil.", price: "$22.00" },
  
 ];
 
@@ -65,7 +57,7 @@ const App = () => {
   return (
     
     <div className="min-h-screen bg-gray-50 p-4 md:p-10">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-20">
         
         {/* Header/Title Section */}
           <div className="flex justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  ">
