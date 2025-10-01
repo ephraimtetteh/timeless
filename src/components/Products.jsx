@@ -27,7 +27,7 @@ const ProductCard = ({ img, title, text, price }) => {
 
       {/* Title */}
       <div className="flex-grow w-full">
-        <h3 className="text-xl font-bold text-gray-800 tracking-tight mt-2 mb-1">
+        <h3 className="text-xl font-medium text-gray-800 tracking-tight mt-2 mb-1">
           {title}
         </h3>
       </div>
@@ -39,10 +39,10 @@ const ProductCard = ({ img, title, text, price }) => {
 
       {/* Price and "View Details" button */}
       <div className="w-full mt-auto">
-        <h4 className="text-2xl font-extrabold text-gray-900 mb-4">{price}</h4>
+        <h4 className="text-xl  text-gray-900 mb-4">{price}</h4>
         <button 
-          className="w-full py-3 bg-pink-600 text-white rounded-full font-medium hover:bg-pink-700 transition duration-150 shadow-md shadow-green-400/50"
-          onClick={() => console.log(`Viewing ${title}`)}
+          className="w-full py-2  bg-pink-600 text-white rounded-full  hover:bg-pink-700 transition duration-150"
+          onClick={() =>   console.log(`Viewing ${title}`)}
         >
             View Details
         </button>
@@ -57,7 +57,7 @@ const App = () => {
   return (
     
     <div className="min-h-screen bg-gray-50 p-4 md:p-10">
-      <div className="max-w-7xl mx-auto px-20">
+      <div className=" max-w-9xl mx-auto px-10">
         
         {/* Header/Title Section */}
           <div className="flex justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  ">
@@ -77,15 +77,15 @@ const App = () => {
 
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-3">
           {productData.map((product, index) => (
             <ProductCard key={index} {...product} />
           ))}
         </div>
 
         {/* Call to Action Button */}
-        <div className="text-center mt-16 mb-24">
-            <button className="px-10 py-3 bg-pink-600 text-white font-bold text-lg rounded-full shadow-2xl shadow-green-400/50 hover:bg-pink-700 transition duration-300 transform hover:scale-[1.03]">
+        <div className="text-center mt-10 mb-20">
+            <button className="px-8 py-2 bg-pink-600 text-white  rounded-full  hover:bg-pink-700 transition duration-300 transform hover:scale-[1.03]">
                 Shop All Our Perfumes
             </button>
         </div>

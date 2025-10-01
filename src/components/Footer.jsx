@@ -1,20 +1,20 @@
-import { FaFacebook, FaInstagram, FaTwitter, FaTiktok } from "react-icons/fa";
+import { FaInstagram, FaTwitter, FaTiktok, FaFacebookF } from "react-icons/fa";
 import { MdAddCall, MdLocationPin, MdOutlineMail } from "react-icons/md";
 
 const Footer = () => {
   return (
-    <div className="bg-pink-500/50 cursor-pointer text-gray-800">
+    <div className="bg-black cursor-pointer text-white">
       <div className="px-4 sm:px-10 md:px-20">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-14 py-6">
           {/* Brand & Social Media */}
-          <div>
+          <div className="gap-4">
             <div className="text-sm">
               <img
                 className="w-20 pb-4 "
                 src="/TM-logo.jpg"
                 alt="logo"
               />
-              <p className="text-sm pb-4 tracking-tight">
+              <p className="text-sm pb-4 ">
                 Discover <span className="font-bold">TIMELESS,</span> where
                 every drop tells a story. Our curated scents capture the essence
                 of a cherished memory, bottling the past, present, and future
@@ -22,7 +22,7 @@ const Footer = () => {
               </p>
               <ul className="flex gap-4 text-xl pt-2 justify-center md:justify-start">
                 <li>
-                  <FaFacebook className="hover:text-pink-700 transition-colors" />
+                  <FaFacebookF  acebook className="hover:text-pink-700 transition-colors" />
                 </li>
                 <li>
                   <FaInstagram className="hover:text-pink-700 transition-colors" />
@@ -43,7 +43,7 @@ const Footer = () => {
               {/* Navigation */}
               <div className="text-sm">
                 <p className="font-bold text-lg pb-3">Navigation</p>
-                <ul className="space-y-2">
+                <ul className="space-y-4">
                   <li>
                     <a href="#" className="hover:text-pink-700">
                       Home
@@ -70,7 +70,7 @@ const Footer = () => {
               {/* Support */}
               <div className="text-sm mt-6 sm:mt-0">
                 <p className="font-bold text-lg pb-3">Support</p>
-                <ul className="space-y-2">
+                <ul className="space-y-4">
                   <li>
                     <a href="#" className="hover:text-pink-700">
                       Help
@@ -97,7 +97,7 @@ const Footer = () => {
               {/* Contact */}
               <div className="text-sm mt-6 sm:mt-0">
                 <p className="font-bold text-lg pb-3">Contact</p>
-                <ul className="space-y-2">
+                <ul className="space-y-4">
                   <li className="flex gap-2 items-start">
                     <MdAddCall className="mt-1 flex-shrink-0" />
                     +1854 124 124
@@ -118,7 +118,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright section */}
-      <div className="border-t border-black pt-4 pb-4 text-center text-xs sm:text-sm text-gray-700 bg-pink-400/60">
+      <div className="border-t border-pink-500 pt-4 pb-4 text-center text-xs sm:text-sm text-gray-900 bg-white">
         &copy; {new Date().getFullYear()} Timeless Perfume. All rights reserved.
       </div>
     </div>
