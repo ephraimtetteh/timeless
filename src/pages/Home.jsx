@@ -5,26 +5,24 @@ const Home = () => {
     <div>
       {/* Hero  Section */}
       <section className="grid lg:grid-cols-2 justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  ">
-        {/* Text  div */}
 
-        <div className="px-20">
-          <h1 className="text-7xl text-pink-700 tracking-tight ">
-            Discover the Essence of Luxury
-          </h1>
-          <button className="bg-pink-700 text-white px-4 py-2  mt-5">
-            Shop Now
-          </button>
-        </div>
+          {/* Text  div */}
+          <div className="lg:px-20 pt-20">
+            <h1 className="lg:text-7xl text-4xl text-pink-700 tracking-tight ">Discover the Essence of Luxury</h1>
+            <button className="bg-pink-700 text-white px-4 py-2  mt-5">Shop Now</button>
+          </div>
+
 
         {/* image  div */}
 
-        <div>
-          <img
-            className="w-full h-screen object-cover pt-4"
-            src="/Perfume1.jpg"
-            alt="image"
-          />
-        </div>
+          <div>
+            <img
+              className="w-full lg:h-screen object-center object-cover pt-4"
+              src="/Perfume1.jpg"
+              alt="image"
+            />
+          </div>
+
       </section>
 
       {/* Products */}
