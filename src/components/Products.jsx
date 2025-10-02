@@ -12,6 +12,7 @@ const productData = [
 const ProductCard = ({ img, title, text, price }) => {
   return (
     // Card container: white background, rounded corners, subtle shadow, centered text
+
     <div className="bg-white rounded-xl hover:shadow-xl transition-shadow duration-300 p-5 flex flex-col items-center text-center max-w-sm m-auto border border-gray-100">
 
       {/* Image container */}
@@ -41,7 +42,7 @@ const ProductCard = ({ img, title, text, price }) => {
       <div className="w-full mt-auto">
         <h4 className="text-xl  text-gray-900 mb-4">{price}</h4>
         <button 
-          className="w-full py-2  bg-pink-600 text-white rounded-full  hover:bg-pink-700 transition duration-150"
+          className="w-full py-2  bg-pink-500 text-white rounded-full  hover:bg-pink-700 transition duration-150"
           onClick={() =>   console.log(`Viewing ${title}`)}
         >
             View Details
@@ -84,8 +85,8 @@ const App = () => {
         </div>
 
         {/* Call to Action Button */}
-        <div className="text-center mt-10 mb-20">
-            <button className="px-8 py-2 bg-pink-600 text-white  rounded-full  hover:bg-pink-700 transition duration-300 transform hover:scale-[1.03]">
+        <div className="text-center mt-10 mb-2">
+            <button className="px-8 py-2 bg-pink-500 text-white  rounded-full  hover:bg-pink-700 transition duration-300 transform hover:scale-[1.03]">
                 Shop All Our Perfumes
             </button>
         </div>
