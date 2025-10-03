@@ -12,6 +12,7 @@ const productData = [
 const ProductCard = ({ img, title, text, price }) => {
   return (
     // Card container: white background, rounded corners, subtle shadow, centered text
+
     <div className="bg-white rounded-xl hover:shadow-xl transition-shadow duration-300 p-5 flex flex-col items-center text-center max-w-sm m-auto border border-gray-100">
 
       {/* Image container */}
@@ -41,7 +42,7 @@ const ProductCard = ({ img, title, text, price }) => {
       <div className="w-full mt-auto">
         <h4 className="text-xl  text-gray-900 mb-4">{price}</h4>
         <button 
-          className="w-full py-2  bg-pink-600 text-white rounded-full  hover:bg-pink-700 transition duration-150"
+          className="w-full py-2  bg-pink-500 text-white rounded-full  hover:bg-pink-700 transition duration-150"
           onClick={() =>   console.log(`Viewing ${title}`)}
         >
             View Details
@@ -60,20 +61,54 @@ const App = () => {
       <div className=" max-w-9xl mx-auto px-10">
         
         {/* Header/Title Section */}
-          <div className="hidden lg:flex justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  ">
-          <div className=" font-bold tracking-tighter">
-            <h2 className="text-lg hover:text-pink-700 hover:border-b-2">
-              OUR TOP PRODUCTS
-            </h2>
-          </div>
+         {/* Desktop Nav (unchanged) */}
+<div className="hidden lg:flex justify-between items-center px-5 py-2 text-gray-900 cursor-pointer">
+  <div className="font-bold tracking-tighter">
+    <h2 className="text-lg hover:text-pink-700 hover:border-b-2">
+      OUR TOP PRODUCTS
+    </h2>
+  </div>
 
-          <div className="flex gap-4 font-bold tracking-tight">
-            <p className="hover:text-pink-700 border-b-2  ">ALL PERFUMES</p>
-            <p className="hover:text-pink-700 hover:border-b-2 ">WOMEN</p>
-            <p className="hover:text-pink-700 hover:border-b-2 ">MEN </p>
-            <p className="hover:text-pink-700 hover:border-b-2 ">UNISEX </p>
-          </div>
-        </div> 
+  <div className="flex gap-4 font-bold tracking-tight">
+    <p className="hover:text-pink-700 border-b-2">ALL PERFUMES</p>
+    <p className="hover:text-pink-700 hover:border-b-2">WOMEN</p>
+    <p className="hover:text-pink-700 hover:border-b-2">MEN</p>
+    <p className="hover:text-pink-700 hover:border-b-2">UNISEX</p>
+  </div>
+</div>
+
+{/* Mobile / iPad Nav */}
+<div className="lg:hidden flex justify-between items-center px-5 py-3 text-gray-900">
+  <div className="font-bold tracking-tighter">
+    <h2 className="text-base sm:text-lg">OUR TOP PRODUCTS</h2>
+  </div>
+
+  {/* Dropdown with icon */}
+  <div className="relative group">
+    <button className="flex items-center gap-2 font-bold tracking-tight focus:outline-none">
+    
+      {/* Hamburger Icon */}
+      <svg
+        className="w-6 h-6 text-gray-700 group-hover:text-pink-700"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    {/* Dropdown Items */}
+    <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md hidden group-hover:block">
+      <p className="px-4 py-2 hover:bg-pink-100">ALL PERFUMES</p>
+      <p className="px-4 py-2 hover:bg-pink-100">WOMEN</p>
+      <p className="px-4 py-2 hover:bg-pink-100">MEN</p>
+      <p className="px-4 py-2 hover:bg-pink-100">UNISEX</p>
+    </div>
+  </div>
+</div>
+
 
 
         {/* Product Grid */}
@@ -84,8 +119,8 @@ const App = () => {
         </div>
 
         {/* Call to Action Button */}
-        <div className="text-center mt-10 mb-20">
-            <button className="px-8 py-2 bg-pink-600 text-white  rounded-full  hover:bg-pink-700 transition duration-300 transform hover:scale-[1.03]">
+        <div className="text-center mt-10 mb-2">
+            <button className="px-8 py-2 bg-pink-500 text-white  rounded-full  hover:bg-pink-700 transition duration-300 transform hover:scale-[1.03]">
                 Shop All Our Perfumes
             </button>
         </div>
