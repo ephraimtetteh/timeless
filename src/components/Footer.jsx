@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="text-sm">
               <img
                 className="w-20 pb-4 "
-                src="/TM-logo.jpg"
+                src="/tlogo.png"
                 alt="logo"
               />
               <p className="text-sm pb-4 ">
