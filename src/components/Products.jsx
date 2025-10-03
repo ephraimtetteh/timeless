@@ -61,20 +61,54 @@ const App = () => {
       <div className=" max-w-9xl mx-auto px-10">
         
         {/* Header/Title Section */}
-          <div className="hidden lg:flex justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  ">
-          <div className=" font-bold tracking-tighter">
-            <h2 className="text-lg hover:text-pink-700 hover:border-b-2">
-              OUR TOP PRODUCTS
-            </h2>
-          </div>
+         {/* Desktop Nav (unchanged) */}
+<div className="hidden lg:flex justify-between items-center px-5 py-2 text-gray-900 cursor-pointer">
+  <div className="font-bold tracking-tighter">
+    <h2 className="text-lg hover:text-pink-700 hover:border-b-2">
+      OUR TOP PRODUCTS
+    </h2>
+  </div>
 
-          <div className="flex gap-4 font-bold tracking-tight">
-            <p className="hover:text-pink-700 border-b-2  ">ALL PERFUMES</p>
-            <p className="hover:text-pink-700 hover:border-b-2 ">WOMEN</p>
-            <p className="hover:text-pink-700 hover:border-b-2 ">MEN </p>
-            <p className="hover:text-pink-700 hover:border-b-2 ">UNISEX </p>
-          </div>
-        </div> 
+  <div className="flex gap-4 font-bold tracking-tight">
+    <p className="hover:text-pink-700 border-b-2">ALL PERFUMES</p>
+    <p className="hover:text-pink-700 hover:border-b-2">WOMEN</p>
+    <p className="hover:text-pink-700 hover:border-b-2">MEN</p>
+    <p className="hover:text-pink-700 hover:border-b-2">UNISEX</p>
+  </div>
+</div>
+
+{/* Mobile / iPad Nav */}
+<div className="lg:hidden flex justify-between items-center px-5 py-3 text-gray-900">
+  <div className="font-bold tracking-tighter">
+    <h2 className="text-base sm:text-lg">OUR TOP PRODUCTS</h2>
+  </div>
+
+  {/* Dropdown with icon */}
+  <div className="relative group">
+    <button className="flex items-center gap-2 font-bold tracking-tight focus:outline-none">
+    
+      {/* Hamburger Icon */}
+      <svg
+        className="w-6 h-6 text-gray-700 group-hover:text-pink-700"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    {/* Dropdown Items */}
+    <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md hidden group-hover:block">
+      <p className="px-4 py-2 hover:bg-pink-100">ALL PERFUMES</p>
+      <p className="px-4 py-2 hover:bg-pink-100">WOMEN</p>
+      <p className="px-4 py-2 hover:bg-pink-100">MEN</p>
+      <p className="px-4 py-2 hover:bg-pink-100">UNISEX</p>
+    </div>
+  </div>
+</div>
+
 
 
         {/* Product Grid */}
