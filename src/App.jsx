@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import ForgotPassword from "./pages/ForgotPassword";
 import SignleProductPage from "./pages/SignleProductPage";
 import Checkout from "./pages/Checkout";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/signle-product" element={<> <Header /><SignleProductPage /><Footer /> </>} />
         <Route path="/checkout" element={<> <Header /><Checkout /><Footer /> </>} />
+        <Route path="/products" element={<> <Header /><ProductPage /><Footer /> </>} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </>
