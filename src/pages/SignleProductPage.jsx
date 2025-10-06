@@ -1,6 +1,6 @@
 import React from 'react'
 import { productImages } from '../assets/assets'
-import { FaArrowRight, FaFacebookF, FaInstagram, FaTwitter    } from "react-icons/fa";
+import { FaArrowRight, FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const SignleProductPage = () => {
   return (

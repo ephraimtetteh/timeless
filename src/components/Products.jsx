@@ -1,11 +1,11 @@
 
 //  Product display 
 const productData = [
-  { img: "/Perfume1.jpg", title: "Brightening Perfume", text: "Revitalize your skin with our potent formula.", price: "$35.00" },
-  { img: "/Perfume2.jpg", title: "Chanel Perfume", text: "Balance pH and prep skin for ultimate moisture.", price: "$28.00" },
-  { img: "/Perfume3.jpg", title: "Prada Perfume", text: "Wake up to smoother, firmer-looking skin.", price: "$49.00" },
-  { img: "/Perfume1.jpg", title: "Hydra Cream", text: "Deep hydration that lasts all day without grease.", price: "$32.00" },
- 
+ { img: "/Perfume1.jpg", title: "Radiance Bloom", text: "A luminous fragrance that captures the essence of elegance and charm.", price: "$35.00" },
+{ img: "/Perfume2.jpg", title: "Velour by Chanel", text: "An irresistible blend of sophistication and timeless allure.", price: "$28.00" },
+{ img: "/Perfume3.jpg", title: "Prada Enchant", text: "A bold, modern scent crafted for unforgettable moments.", price: "$49.00" },
+{ img: "/Perfume6.jpg", title: "Eternal Mist", text: "Soft whispers of floral and musk that linger with grace all day.", price: "$32.00" }
+
 ];
 
 

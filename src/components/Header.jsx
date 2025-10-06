@@ -14,7 +14,7 @@ const Header = () => {
           <img
             className="w-12 "
             src="/TM-logo.jpg"
-            alt="Timeless Perfume Logo"
+            alt="Timeless Perfume Logo" 
           />
         </Link>
 
@@ -36,6 +36,7 @@ const Header = () => {
               <FiShoppingCart className="text-xl font-extrabold" />
             </Link>
           </span>
+          
           {/* Mobile Menu Button */}
           <button
             className="md:hidden ml-2 text-pink-700"
@@ -52,7 +53,7 @@ const Header = () => {
       {/* Mobile Nav */}
       {menuOpen && (
         <nav className="md:hidden bg-pink-100 px-4 pb-4 justify-center items-center">
-          <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">Bestsellers</Link>
+          <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">Bestsellers </Link>
           <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">New Scents</Link>
           <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">Featured</Link>
           <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">About Us</Link>
