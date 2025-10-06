@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="text-sm">
               <img
                 className="w-20 pb-4 "
-                src="/TM-logo.jpg"
+                src="/tlogo.png"
                 alt="logo"
               />
               <p className="text-sm pb-4 ">
@@ -38,8 +38,8 @@ const Footer = () => {
           </div>
 
           {/* Navigation, Support, Contact */}
-          <div className="md:col-span-3">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-20">
+          <div className="md:col-span-3 ">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-20 px-20">
               {/* Navigation */}
               <div className="text-sm">
                 <p className="font-bold text-lg pb-3">Navigation</p>

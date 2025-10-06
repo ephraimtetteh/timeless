@@ -12,8 +12,7 @@ const Home = () => {
           <h1 className="lg:text-7xl text-4xl text-pink-700 tracking-tight ">
             Indulge in the Art of Scent
           </h1>
-          <p className="mt-3 sm:text-base">Where timeless elegance meets modern allure. Each fragrance is a masterpiece crafted to awaken your senses and leave a trail of unforgettable sophistication.</p>
-          <button className="bg-pink-700 text-white px-4 py-2  mt-5 hover:bg-pink-800 ease-in-out duration-300">
+          <button className="bg-pink-700 text-white px-4 py-2  mt-5">
             Shop Now
           </button>
         </div>
@@ -29,22 +28,24 @@ const Home = () => {
         </div>
       </section>
 
-      {/* PRODUCTS  SECTION */}
-
       {/* Products Section */}
-      <section>
-        <Products />
+      <section className=" ">
+        {/* Left side */}
+        <div>
+          <Products />
+        </div>
       </section>
 
       {/* Third Section */}
 
-      <section className="bg-pink-50 p-4 sm:p-8 lg:p-12 xl:p-20">
+      <section className="bg-pink-50 p-4 lg:p-12 xl:p-20">
         {/* Header Section */}
         <div>
+
           <h1 className="text-4xl sm:text-5xl text-pink-700  mb-6 text-center lg:text-left">
             Why Settle for Ordinary <br className="hidden sm:block" /> When You
-            Can Smell Divine?
-          </h1>
+            Can Smell Divine? </h1>
+
         </div>
 
         {/* Main Card Container */}
@@ -54,7 +55,7 @@ const Home = () => {
             {/* Main Image Container */}
             <div className="overflow-hidden rounded-xl">
               <img
-                className="w-full h-96 sm:h-[60vh] lg:h-full object-cover transition-transform duration-300"
+                className="w-full h-[70vh] sm:h-[60vh] lg:h-full object-cover object-center transition-transform duration-300"
                 src="/Perfume3.jpg"
                 alt="An image of perfume."
               />
@@ -62,13 +63,13 @@ const Home = () => {
 
             {/* Overlay Container Card */}
 
-            <div className="absolute bottom-4 left-4 right-4 sm:top-auto sm:left-auto sm:bottom-8 sm:right-8 p-4 sm:p-5 bg-white bg-opacity-90 backdrop-blur-sm text-gray-900 rounded-lg flex items-start gap-3 shadow-lg">
+            <div className="absolute bottom-4 left-4 max-sm:w-[90%]  p-4 sm:p-5 bg-white bg-opacity-90 backdrop-blur-sm text-gray-900 rounded-lg flex items-start justify-center gap-3 shadow-lg">
               {/* Icon Div */}
-              <div className="text-xl text-pink-600">
-                <FaRegCheckSquare />
+              <div className="text-xl text-pink-600 items-center justify-center">
+                <FaRegCheckSquare className="justify-center" />
               </div>
               {/*  icon */}
-              <div>
+              <div className="items-center justify-center">
                 <h2 className="font-bold text-lg sm:text-xl text-pink-700">
                   The Signature Aura
                 </h2>
@@ -115,16 +116,16 @@ const Home = () => {
       </section>
 
       {/* Fourth Section */}
-      <section className="w-full rounded px-20">
-        {/* Image Section */}
-        <article className="relative w-full  shadow-lg hover:shadow-xl duration-300 mb-4">
+      {/* <section className="w-full bg-pink-200 px-1
+      ">
+        <article className="relative w-[90%] m-auto h-[100vh] shadow-lg hover:shadow-xl duration-300 mb-4">
           <img
-            className="w-full h-96 sm:h-[60vh] lg:h-[90vh] object-cover transition-transform duration-300"
+            className="w-full h-96 sm:h-[60vh] lg:h-[90vh] object-cover object-center transition-transform duration-300"
             src="/Perfume2.jpg"
             alt="Perfume Banner"
           />
 
-          {/* Top-left card */}
+          Top-left card
           <div className="absolute top-6 left-4  flex items-center gap-4 rounded-xl p-3 bg-white/90 shadow-lg max-w-xs sm:max-w-sm ">
             <div className="w-10 h-10  flex items-center justify-center ">
               <img src="/Perfume6.jpg" alt="" />
@@ -137,7 +138,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Bottom-right card */}
+         
           <div className="absolute bottom-6 right-4 flex items-center gap-4 rounded-xl p-3 bg-white/90 shadow-lg max-w-xs sm:max-w-sm">
             <div className="w-10 h-10  flex items-center justify-center ">
               <img src="/Perfume6.jpg" alt="image" />
@@ -150,7 +151,7 @@ const Home = () => {
             </div>
           </div>
         </article>
-      </section>
+      </section> */}
 
       {/* Last Section */}
 

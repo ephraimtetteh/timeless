@@ -13,13 +13,13 @@ const Header = () => {
         <Link to="/" className="flex items-center">
           <img
             className="w-12 "
-            src="/TM-logo.jpg"
-            alt="Timeless Perfume Logo" 
+            src="/tlogo.png"
+            alt="Timeless Perfume Logo"
           />
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden lg:flex items-center gap-10">
           <Link to="#" className="hover:text-pink-700 hover:border-b-2">Bestsellers</Link>
           <Link to="#" className="hover:text-pink-700 hover:border-b-2">New Scents</Link>
           <Link to="#" className="hover:text-pink-700 hover:border-b-2">Featured</Link>
@@ -29,7 +29,7 @@ const Header = () => {
         {/* Right Side */}
         <div className="flex items-center gap-6">
           <Link to="/signup" className="hover:text-pink-600">
-            <VscAccount className="text-xl text-pink-700" />
+            <VscAccount className="text-xl " />
           </Link>
           <span className="hover:text-pink-600">
             <Link to={'/checkout'}>
@@ -39,7 +39,7 @@ const Header = () => {
           
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden ml-2 text-pink-700"
+            className=" ml-2 text-pink-700"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
