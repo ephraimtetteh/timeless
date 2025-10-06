@@ -4,9 +4,8 @@ import Products from "../components/Products";
 const Home = () => {
   return (
     <div>
-
       {/* HERO  SECTION */}
-      <section className="grid lg:grid-cols-2 justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  ">
+      <section className="grid lg:grid-cols-2 justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  h-[70vh]">
         {/* Text  div */}
         <div className="lg:px-20 pt-20">
           <h1 className="lg:text-7xl text-4xl text-pink-700 tracking-tight ">
@@ -22,7 +21,7 @@ const Home = () => {
 
         <div>
           <img
-            className="w-full lg:h-screen object-center object-cover pt-4"
+            className="w-full object-center object-cover pt-4 h-[70vh]"
             src="/Perfume6.jpg"
             alt="image"
           />
@@ -30,8 +29,6 @@ const Home = () => {
       </section>
 
       {/* PRODUCTS  SECTION */}
-
-      {/* Products Section */}
       <section>
         <Products />
       </section>
@@ -150,7 +147,7 @@ const Home = () => {
             </div>
           </div>
         </article>
-      </section> */}
+      </section> *
 
       {/* Last Section */}
 
