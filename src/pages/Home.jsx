@@ -4,15 +4,15 @@ import Products from "../components/Products";
 const Home = () => {
   return (
     <div>
-
       {/* HERO  SECTION */}
-      <section className="grid lg:grid-cols-2 justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  ">
+      <section className="grid lg:grid-cols-2 justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  h-[70vh]">
         {/* Text  div */}
         <div className="lg:px-20 pt-20">
           <h1 className="lg:text-7xl text-4xl text-pink-700 tracking-tight ">
             Indulge in the Art of Scent
           </h1>
-          <button className="bg-pink-700 text-white px-4 py-2  mt-5">
+          <p className="mt-3 sm:text-base">Where timeless elegance meets modern allure. Each fragrance is a masterpiece crafted to awaken your senses and leave a trail of unforgettable sophistication.</p>
+          <button className="bg-pink-700 text-white px-4 py-2  mt-5 hover:bg-pink-800 ease-in-out duration-300">
             Shop Now
           </button>
         </div>
@@ -21,19 +21,16 @@ const Home = () => {
 
         <div>
           <img
-            className="w-full lg:h-screen object-center object-cover pt-4"
+            className="w-full object-center object-cover pt-4 h-[70vh]"
             src="/Perfume6.jpg"
             alt="image"
           />
         </div>
       </section>
 
-      {/* Products Section */}
-      <section className=" ">
-        {/* Left side */}
-        <div>
-          <Products />
-        </div>
+      {/* PRODUCTS  SECTION */}
+      <section>
+        <Products />
       </section>
 
       {/* Third Section */}
@@ -41,11 +38,10 @@ const Home = () => {
       <section className="bg-pink-50 p-4 lg:p-12 xl:p-20">
         {/* Header Section */}
         <div>
-
           <h1 className="text-4xl sm:text-5xl text-pink-700  mb-6 text-center lg:text-left">
             Why Settle for Ordinary <br className="hidden sm:block" /> When You
-            Can Smell Divine? </h1>
-
+            Can Smell Divine?
+          </h1>
         </div>
 
         {/* Main Card Container */}
@@ -116,9 +112,9 @@ const Home = () => {
       </section>
 
       {/* Fourth Section */}
-      {/* <section className="w-full bg-pink-200 px-1
-      ">
-        <article className="relative w-[90%] m-auto h-[100vh] shadow-lg hover:shadow-xl duration-300 mb-4">
+      <section className="w-full rounded px-20">
+        {/* Image Section */}
+        <article className="relative w-full  shadow-lg hover:shadow-xl duration-300 mb-4">
           <img
             className="w-full h-96 sm:h-[60vh] lg:h-[90vh] object-cover object-center transition-transform duration-300"
             src="/Perfume2.jpg"
@@ -151,7 +147,7 @@ const Home = () => {
             </div>
           </div>
         </article>
-      </section> */}
+      </section> *
 
       {/* Last Section */}
 
