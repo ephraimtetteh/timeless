@@ -3,7 +3,7 @@ import { MdAddCall, MdLocationPin, MdOutlineMail } from "react-icons/md";
 
 const Footer = () => {
   return (
-    <div className="bg-black cursor-pointer text-white">
+    <div className="bg-gray-900 cursor-pointer text-white">
       <div className="px-4 sm:px-10 md:px-20">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-14 py-6">
           {/* Brand & Social Media */}

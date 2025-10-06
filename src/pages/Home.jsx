@@ -4,15 +4,16 @@ import Products from "../components/Products";
 const Home = () => {
   return (
     <div>
-      {/* Hero  Section */}
-      <section className="grid lg:grid-cols-2 justify-between items-center py-2 text-gray-900 cursor-pointer  ">
+
+      {/* HERO  SECTION */}
+      <section className="grid lg:grid-cols-2 justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  ">
         {/* Text  div */}
         <div className="lg:px-20 pt-20">
-          <h1 className="lg:text-7xl text-4xl text-pink-500 tracking-tight ">
-            Discover the Essence of Luxury
+          <h1 className="lg:text-7xl text-4xl text-pink-700 tracking-tight ">
+            Indulge in the Art of Scent
           </h1>
-          <p className="py-4">“A fragrance that lingers, a memory that lasts, Crafted to define elegance, one note at a time.”</p>
-          <button className="bg-pink-700 text-white px-4 py-2  mt-5">
+          <p className="mt-3 sm:text-base">Where timeless elegance meets modern allure. Each fragrance is a masterpiece crafted to awaken your senses and leave a trail of unforgettable sophistication.</p>
+          <button className="bg-pink-700 text-white px-4 py-2  mt-5 hover:bg-pink-800 ease-in-out duration-300">
             Shop Now
           </button>
         </div>
@@ -22,18 +23,17 @@ const Home = () => {
         <div>
           <img
             className="w-full lg:h-screen object-center object-cover pt-4"
-            src="/Perfume1.jpg"
+            src="/Perfume6.jpg"
             alt="image"
           />
         </div>
       </section>
 
+      {/* PRODUCTS  SECTION */}
+
       {/* Products Section */}
-      <section className=" ">
-        {/* Left side */}
-        <div>
-          <Products />
-        </div>
+      <section>
+        <Products />
       </section>
 
       {/* Third Section */}
@@ -41,8 +41,9 @@ const Home = () => {
       <section className="bg-pink-50 p-4 lg:p-12 xl:p-20">
         {/* Header Section */}
         <div>
-          <h1 className="lg:text-4xl text-3xl text-pink-700  mb-6 text-center lg:text-left">
-            Why Your Skin <br className="hidden sm:block" /> Deserves the Best
+          <h1 className="text-4xl sm:text-5xl text-pink-700  mb-6 text-center lg:text-left">
+            Why Settle for Ordinary <br className="hidden sm:block" /> When You
+            Can Smell Divine?
           </h1>
         </div>
 
@@ -85,10 +86,10 @@ const Home = () => {
               {/* Text Side */}
               <p className="text-base sm:text-lg p-3 text-center sm:text-left text-gray-700 sm:w-1/2 order-2 sm:order-1">
                 <span className="font-bold text-xl sm:text-2xl text-pink-700 block mb-2">
-                  Eco-Conscious Luxury
+                  Consciously Crafted Elegance
                 </span>
-                Our commitment to the planet is as deep as your signature scent.
-                Sourced sustainably, crafted ethically.
+                Crafted with care and conscience, our perfumes blend nature’s
+                finest notes into pure, unforgettable luxury.{" "}
               </p>
 
               {/* Image Side */}
@@ -114,9 +115,9 @@ const Home = () => {
       </section>
 
       {/* Fourth Section */}
-      {/* <section className="w-full bg-pink-200 px-1
-      ">
-        <article className="relative w-[90%] m-auto h-[100vh] shadow-lg hover:shadow-xl duration-300 mb-4">
+      <section className="w-full rounded px-20">
+        {/* Image Section */}
+        <article className="relative w-full  shadow-lg hover:shadow-xl duration-300 mb-4">
           <img
             className="w-full h-96 sm:h-[60vh] lg:h-[90vh] object-cover object-center transition-transform duration-300"
             src="/Perfume2.jpg"
@@ -151,26 +152,21 @@ const Home = () => {
         </article>
       </section> */}
 
+      {/* Last Section */}
 
-            {/* Last Section */}
-
-<section className="w-full ">
-  <div className="w-full   object-cover  relative ">
-    <img
-    className="w-full h-96 sm:h-[60vh] lg:h-[50vh] object-cover transition-transform duration-300"
-     src="/Perfume2.jpg" alt="image" />
-<div className="absolute inset-0 bg-black/55 "></div>
-<h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white text-center tracking-tight">
-  Luxury Scent Collection
-</h1>
-
-
-  </div>
-
-</section>
-
-
-
+      <section className="w-full px-20 ">
+        <div className="w-full   object-cover  relative  ">
+          <img
+            className="w-full h-96 sm:h-[60vh] lg:h-[50vh] object-cover transition-transform duration-300"
+            src="/Perfume2.jpg"
+            alt="image"
+          />
+          <div className="absolute inset-0 bg-black/55 "></div>
+          <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-white text-center tracking-tight">
+            Luxury Scent Collection
+          </h1>
+        </div>
+      </section>
     </div>
   );
 };
