@@ -7,8 +7,7 @@ export const ProductCard = ({ img, title, text, price }) => {
   return (
     // Card container: white background, rounded corners, subtle shadow, centered text
 
-    <div className="bg-white rounded-xl hover:shadow-xl transition-shadow duration-300 p-2 flex flex-col items-center text-center max-w-sm m-auto border border-gray-100">
-
+    <div className="p-2 flex flex-col items-center text-center max-w-sm m-auto border border-gray-100">
       {/* Image container */}
       <div className="w-full overflow-hidden rounded-lg">
         <img
