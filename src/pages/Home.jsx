@@ -1,11 +1,11 @@
 import { FaRegCheckSquare } from "react-icons/fa";
-import Products from "../components/Products";
+import { productData } from "../assets/assets";
 
 const Home = () => {
   return (
     <div>
       {/* HERO  SECTION */}
-      <section className="grid lg:grid-cols-2 justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  h-[70vh]">
+      <section className="grid lg:grid-cols-2 justify-between items-center px-5 py-2 text-gray-900 cursor-pointer  h-[80vh]">
         {/* Text  div */}
         <div className="lg:px-20 pt-20">
           <h1 className="lg:text-7xl text-4xl text-pink-700 tracking-tight ">
@@ -16,12 +16,11 @@ const Home = () => {
             Shop Now
           </button>
         </div>
-
+        
         {/* image  div */}
-
         <div>
           <img
-            className="w-full object-center object-cover pt-4 h-[70vh]"
+            className="w-full object-center object-cover pt-4 h-[80vh]"
             src="/Perfume6.jpg"
             alt="image"
           />
@@ -29,16 +28,32 @@ const Home = () => {
       </section>
 
       {/* PRODUCTS  SECTION */}
-      <section>
-        <Products />
+      <section className="grid grid-cols-3  m-auto gap-6 lg:px-20 px-8 py-6 mt-[20rem] lg:mt-[5rem]">
+        <div className="relative cursor-pointer">
+          <img src='/Perfume1.jpg'alt="" className="roundedm max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
+            <h2 className="font-medium text-center m-auto justify-center 
+            absolute bottom-4 left-4 rounded bg-pink-50 shadow p-2">For Her</h2>
+        </div>
+        <div className="relative cursor-pointer">
+          <img src='/Perfume6.jpg'alt="" className="roundedm max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
+            <h2 className="font-medium text-center m-auto justify-center 
+            absolute bottom-4 left-4 rounded bg-pink-50 shadow p-2">For Him</h2>
+        </div>
+        <div className="relative cursor-pointer">
+          <img src='/Perfume3.jpg'alt="" className="roundedm max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
+            <h2 className="font-medium text-center m-auto justify-center 
+            absolute bottom-4 left-4 rounded bg-pink-50 shadow p-2">Unisex</h2>
+        </div>
+      
+      
       </section>
 
       {/* Third Section */}
 
-      <section className="bg-pink-50 p-4 lg:p-12 xl:p-20">
+      <section className="bg-pink-50 p-4 lg:p-12 xl:p-20 h-[70vh] lg:mb-62 mb-[44rem]">
         {/* Header Section */}
         <div>
-          <h1 className="text-4xl sm:text-5xl text-pink-700  mb-6 text-center lg:text-left">
+          <h1 className="text-2xl lg:text-5xl text-pink-700  mb-6 text-center lg:text-left">
             Why Settle for Ordinary <br className="hidden sm:block" /> When You
             Can Smell Divine?
           </h1>
@@ -51,7 +66,7 @@ const Home = () => {
             {/* Main Image Container */}
             <div className="overflow-hidden rounded-xl">
               <img
-                className="w-full h-[70vh] sm:h-[60vh] lg:h-full object-cover object-center transition-transform duration-300"
+                className="w-full h-[50vh] sm:h-[50vh] object-cover object-center transition-transform duration-300"
                 src="/Perfume3.jpg"
                 alt="An image of perfume."
               />
@@ -59,7 +74,7 @@ const Home = () => {
 
             {/* Overlay Container Card */}
 
-            <div className="absolute bottom-4 left-4 max-sm:w-[90%]  p-4 sm:p-5 bg-white bg-opacity-90 backdrop-blur-sm text-gray-900 rounded-lg flex items-start justify-center gap-3 shadow-lg">
+            <div className=" absolute bottom-4 left-4 max-sm:w-[90%]  p-4 sm:p-5 bg-white bg-opacity-90 backdrop-blur-sm text-gray-900 rounded-lg flex items-start justify-center gap-3 shadow-lg">
               {/* Icon Div */}
               <div className="text-xl text-pink-600 items-center justify-center">
                 <FaRegCheckSquare className="justify-center" />
@@ -91,7 +106,7 @@ const Home = () => {
 
               {/* Image Side */}
               <img
-                className="w-full h-48 sm:h-auto sm:w-1/2 object-cover rounded-xl mt-4 sm:mt-0 order-1 sm:order-2"
+                className="w-full h-[50vh] sm:h-auto sm:w-1/2 object-cover rounded-xl mt-4 sm:mt-0 order-1 sm:order-2"
                 src="/Perfume3.jpg"
                 alt="A stylized image of a dark glass dropper bottle labeled 'NM' with green leaves, suggesting natural ingredients."
               />
@@ -111,50 +126,12 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Fourth Section */}
-      <section className="w-full rounded px-20">
-        {/* Image Section */}
-        <article className="relative w-full  shadow-lg hover:shadow-xl duration-300 mb-4">
-          <img
-            className="w-full h-96 sm:h-[60vh] lg:h-[90vh] object-cover object-center transition-transform duration-300"
-            src="/Perfume2.jpg"
-            alt="Perfume Banner"
-          />
-
-          Top-left card
-          <div className="absolute top-6 left-4  flex items-center gap-4 rounded-xl p-3 bg-white/90 shadow-lg max-w-xs sm:max-w-sm ">
-            <div className="w-10 h-10  flex items-center justify-center ">
-              <img src="/Perfume6.jpg" alt="" />
-            </div>
-            <div>
-              <h1 className="text-base sm:text-lg font-semibold">
-                Dawn Bloom{" "}
-              </h1>
-              <p className="text-sm sm:text-base">Fresh and vibrant notes.</p>
-            </div>
-          </div>
-
-         
-          <div className="absolute bottom-6 right-4 flex items-center gap-4 rounded-xl p-3 bg-white/90 shadow-lg max-w-xs sm:max-w-sm">
-            <div className="w-10 h-10  flex items-center justify-center ">
-              <img src="/Perfume6.jpg" alt="image" />
-            </div>
-            <div>
-              <h1 className="text-base sm:text-lg font-semibold">
-                Velvet Night
-              </h1>
-              <p className="text-sm sm:text-base">Intense, mysterious aroma.</p>
-            </div>
-          </div>
-        </article>
-      </section> *
-
       {/* Last Section */}
 
-      <section className="w-full px-20 ">
-        <div className="w-full   object-cover  relative  ">
+      <section className="w-full lg:px-20 px-6 md-mt-[51rem] max-sm:mt-[48rem] mb-10">
+        <div className="w-full object-cover relative  ">
           <img
-            className="w-full h-96 sm:h-[60vh] lg:h-[50vh] object-cover transition-transform duration-300"
+            className="w-full md:h-[30vh] lg:h-[50vh] object-cover transition-transform duration-300"
             src="/Perfume2.jpg"
             alt="image"
           />
