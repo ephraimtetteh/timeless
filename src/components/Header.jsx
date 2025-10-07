@@ -11,19 +11,26 @@ const Header = () => {
       <div className="flex items-center justify-between px-4 md:px-20  py-2">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img
-            className="w-12 "
-            src="/tlogo.png"
-            alt="Timeless Perfume Logo"
-          />
+          <img className="w-12 " src="/tlogo.png" alt="Timeless Perfume Logo" />
         </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-10">
-          <Link to="#" className="hover:text-pink-700 hover:border-b-2">Bestsellers</Link>
-          <Link to="#" className="hover:text-pink-700 hover:border-b-2">New Scents</Link>
-          <Link to="#" className="hover:text-pink-700 hover:border-b-2">Featured</Link>
-          <Link to="#" className="hover:text-pink-700 hover:border-b-2">About Us</Link>
+          <Link
+            to="/products"
+            className="hover:text-pink-700 hover:border-b-2"
+          >
+            Bestsellers
+          </Link>
+          <Link to="#" className="hover:text-pink-700 hover:border-b-2">
+            New Scents
+          </Link>
+          <Link to="#" className="hover:text-pink-700 hover:border-b-2">
+            Featured
+          </Link>
+          <Link to="/about-us" className="hover:text-pink-700 hover:border-b-2">
+            About Us
+          </Link>
         </nav>
 
         {/* Right Side */}
@@ -32,11 +39,11 @@ const Header = () => {
             <VscAccount className="text-xl " />
           </Link>
           <span className="hover:text-pink-600">
-            <Link to={'/checkout'}>
+            <Link to={"/checkout"}>
               <FiShoppingCart className="text-xl font-extrabold" />
             </Link>
           </span>
-          
+
           {/* Mobile Menu Button */}
           <button
             className=" ml-2 text-pink-700"
@@ -44,7 +51,12 @@ const Header = () => {
             aria-label="Toggle menu"
           >
             <svg width="18" height="28" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16"/>
+              <path
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           </button>
         </div>
@@ -53,10 +65,30 @@ const Header = () => {
       {/* Mobile Nav */}
       {menuOpen && (
         <nav className="md:hidden bg-pink-100 px-4 pb-4 justify-center items-center">
-          <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">Bestsellers </Link>
-          <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">New Scents</Link>
-          <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">Featured</Link>
-          <Link to="#" className="block py-2 hover:text-pink-700 hover:border-b-2">About Us</Link>
+          <Link
+            to={"/products"}
+            className="block py-2 hover:text-pink-700 hover:border-b-2"
+          >
+            Bestsellers{" "}
+          </Link>
+          <Link
+            to="#"
+            className="block py-2 hover:text-pink-700 hover:border-b-2"
+          >
+            New Scents
+          </Link>
+          <Link
+            to="#"
+            className="block py-2 hover:text-pink-700 hover:border-b-2"
+          >
+            Featured
+          </Link>
+          <Link
+            to="/aboutus"
+            className="block py-2 hover:text-pink-700 hover:border-b-2"
+          >
+            About Us
+          </Link>
         </nav>
       )}
     </header>
