@@ -9,11 +9,7 @@ const Footer = () => {
           {/* Brand & Social Media */}
           <div className="gap-4">
             <div className="text-sm">
-              <img
-                className="w-20 pb-4 "
-                src="/tlogo.png"
-                alt="logo"
-              />
+              <img className="w-20 pb-4 " src="/tlogo.png" alt="logo" />
               <p className="text-sm pb-4 ">
                 Discover <span className="font-bold">TIMELESS,</span> where
                 every drop tells a story. Our curated scents capture the essence
@@ -22,7 +18,10 @@ const Footer = () => {
               </p>
               <ul className="flex gap-4 text-xl pt-2 justify-center md:justify-start">
                 <li>
-                  <FaFacebookF  acebook className="hover:text-pink-700 transition-colors" />
+                  <FaFacebookF
+                    acebook
+                    className="hover:text-pink-700 transition-colors"
+                  />
                 </li>
                 <li>
                   <FaInstagram className="hover:text-pink-700 transition-colors" />
@@ -38,8 +37,8 @@ const Footer = () => {
           </div>
 
           {/* Navigation, Support, Contact */}
-          <div className="md:col-span-3">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-20">
+          <div className="md:col-span-3 ">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-20 px-20">
               {/* Navigation */}
               <div className="text-sm">
                 <p className="font-bold text-lg pb-3">Navigation</p>
@@ -100,15 +99,15 @@ const Footer = () => {
                 <ul className="space-y-4">
                   <li className="flex gap-2 items-start">
                     <MdAddCall className="mt-1 flex-shrink-0" />
-                    +1854 124 124
+                    +232 72 001365/+232 88 075019
                   </li>
                   <li className="flex gap-2 items-start">
                     <MdOutlineMail className="mt-1 flex-shrink-0" />
-                    timeless@gmail.com
+                    timelessbeautyandcosmetics@gmail.com
                   </li>
                   <li className="flex gap-2 items-start">
                     <MdLocationPin className="mt-1 flex-shrink-0" />
-                    123 Main Street
+                    No. 8 Torwama Road-Bo, Sierra Leone
                   </li>
                 </ul>
               </div>
