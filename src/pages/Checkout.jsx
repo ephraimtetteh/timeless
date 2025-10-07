@@ -12,9 +12,9 @@ const Checkout = () => {
                 <div className='flex items-center justify-center'>
                     <img src={productImages.gisade} alt="" width={100} />
                     <div className='flex gap-2'>
-                        <p className='border-pink-300 border p-2 rounded-full font-bold text-xl'>+</p>
-                        <p className='border-black border text-black font-bold text-2xl p-2 rounded-full'>0</p>
-                        <p className='border-pink-300 border p-2 rounded-full font-bold text-xl'>-</p>
+                        <p className='border-pink-300 border p-2 rounded font-bold text-xl cursor-pointer'>+</p>
+                        <p className='border-black border text-black font-bold text-2xl p-2 rounded'>0</p>
+                        <p className='border-pink-300 border p-2 rounded font-bold text-xl cursor-pointer'>-</p>
                     </div>
                 </div>
                 <div>

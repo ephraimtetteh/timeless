@@ -30,17 +30,17 @@ const Home = () => {
       {/* PRODUCTS  SECTION */}
       <section className="grid grid-cols-3  m-auto gap-6 lg:px-20 px-8 py-6 mt-[20rem] lg:mt-[5rem]">
         <div className="relative cursor-pointer">
-          <img src='/Perfume1.jpg'alt="" className="roundedm max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
+          <img src='/Perfume1.jpg'alt="" className="rounded max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
             <h2 className="font-medium text-center m-auto justify-center 
             absolute bottom-4 left-4 rounded bg-pink-50 shadow p-2">For Her</h2>
         </div>
         <div className="relative cursor-pointer">
-          <img src='/Perfume6.jpg'alt="" className="roundedm max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
+          <img src='/Perfume6.jpg'alt="" className="rounded max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
             <h2 className="font-medium text-center m-auto justify-center 
             absolute bottom-4 left-4 rounded bg-pink-50 shadow p-2">For Him</h2>
         </div>
         <div className="relative cursor-pointer">
-          <img src='/Perfume3.jpg'alt="" className="roundedm max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
+          <img src='/Perfume3.jpg'alt="" className="rounded max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
             <h2 className="font-medium text-center m-auto justify-center 
             absolute bottom-4 left-4 rounded bg-pink-50 shadow p-2">Unisex</h2>
         </div>
