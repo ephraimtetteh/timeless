@@ -1,5 +1,6 @@
 import { FaRegCheckSquare } from "react-icons/fa";
-import { productData } from "../assets/assets";
+import { productData, productImages } from "../assets/assets";
+
 
 const Home = () => {
   return (
@@ -21,7 +22,7 @@ const Home = () => {
         <div>
           <img
             className="w-full object-center object-cover pt-4 h-[80vh]"
-            src="/Perfume6.jpg"
+            src={productImages.perfume6}
             alt="image"
           />
         </div>
@@ -30,17 +31,17 @@ const Home = () => {
       {/* PRODUCTS  SECTION */}
       <section className="grid grid-cols-3  m-auto gap-6 lg:px-20 px-8 py-6 mt-[20rem] lg:mt-[5rem]">
         <div className="relative cursor-pointer">
-          <img src='/Perfume1.jpg'alt="" className="rounded max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
+          <img src={productImages.perfume6} alt="" className="rounded max-sm:mb-5 md:mb-5 h-[500px] max-sm:h-[150px] max-md:h-[150px] w-[100%]" />
             <h2 className="font-medium text-center m-auto justify-center 
             absolute bottom-4 left-4 rounded bg-pink-50 shadow p-2">For Her</h2>
         </div>
         <div className="relative cursor-pointer">
-          <img src='/Perfume6.jpg'alt="" className="rounded max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
+          <img src={productImages.perfume4} alt="" className="rounded max-sm:mb-5 md:mb-5 h-[500px] max-sm:h-[150px] max-md:h-[150px] w-[100%]" />
             <h2 className="font-medium text-center m-auto justify-center 
             absolute bottom-4 left-4 rounded bg-pink-50 shadow p-2">For Him</h2>
         </div>
         <div className="relative cursor-pointer">
-          <img src='/Perfume3.jpg'alt="" className="rounded max-sm:mb-5 md:mb-5 h-[500px] w-[100%]" />
+          <img src={productImages.perfume3} alt="" className="rounded max-sm:mb-5 md:mb-5 h-[500px] max-sm:h-[150px] max-md:h-[150px] w-[100%]" />
             <h2 className="font-medium text-center m-auto justify-center 
             absolute bottom-4 left-4 rounded bg-pink-50 shadow p-2">Unisex</h2>
         </div>
@@ -66,8 +67,8 @@ const Home = () => {
             {/* Main Image Container */}
             <div className="overflow-hidden rounded-xl">
               <img
-                className="w-full h-[50vh] sm:h-[50vh] object-cover object-center transition-transform duration-300"
-                src="/Perfume3.jpg"
+                className="w-full h-[70vh] sm:h-[50vh] object-cover object-center transition-transform duration-300"
+                src={productImages.perfume3}
                 alt="An image of perfume."
               />
             </div>
@@ -107,7 +108,7 @@ const Home = () => {
               {/* Image Side */}
               <img
                 className="w-full h-[50vh] sm:h-auto sm:w-1/2 object-cover rounded-xl mt-4 sm:mt-0 order-1 sm:order-2"
-                src="/Perfume3.jpg"
+                src={productImages.perfume3}
                 alt="A stylized image of a dark glass dropper bottle labeled 'NM' with green leaves, suggesting natural ingredients."
               />
             </div>
@@ -132,7 +133,7 @@ const Home = () => {
         <div className="w-full object-cover relative  ">
           <img
             className="w-full md:h-[30vh] lg:h-[50vh] object-cover transition-transform duration-300"
-            src="/Perfume2.jpg"
+            src={productImages.perfume2}
             alt="image"
           />
           <div className="absolute inset-0 bg-black/55 "></div>

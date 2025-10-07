@@ -1,4 +1,9 @@
 import gisade from './gisada.webp'
+import perfume1 from './Perfume1.jpg'
+import perfume2 from './Perfume2.jpg'
+import perfume3 from './Perfume3.jpg'
+import perfume4 from './Perfume4.jpg'
+import perfume6 from './Perfume6.jpg'
 
  export const productData = [
     { img: "/Perfume1.jpg", 
@@ -25,5 +30,10 @@ import gisade from './gisada.webp'
    ];
 
 export const productImages = {
-    gisade
+    gisade,
+    perfume1,
+    perfume2,
+    perfume3,
+    perfume4,
+    perfume6
 }
