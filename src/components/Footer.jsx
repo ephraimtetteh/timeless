@@ -1,126 +1,169 @@
+// Footer.jsx — luxury editorial footer
+import { Link } from "react-router-dom";
 import { FaInstagram, FaTwitter, FaTiktok, FaFacebookF } from "react-icons/fa";
 import { MdAddCall, MdLocationPin, MdOutlineMail } from "react-icons/md";
 
+const NAV = [
+  { label: "Home", to: "/" },
+  { label: "Bestsellers", to: "/products" },
+  { label: "New Scents", to: "/new" },
+  { label: "About Us", to: "/about-us" },
+];
+
+const SUPPORT = [
+  { label: "Help Centre", to: "/help" },
+  { label: "FAQ", to: "/faq" },
+  { label: "Terms of Service", to: "/terms" },
+  { label: "Privacy Policy", to: "/privacy" },
+];
+
+const SOCIALS = [
+  { Icon: FaFacebookF, href: "https://facebook.com", label: "Facebook" },
+  { Icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
+  { Icon: FaTwitter, href: "https://twitter.com", label: "Twitter" },
+  { Icon: FaTiktok, href: "https://tiktok.com", label: "TikTok" },
+];
+
+const CONTACT = [
+  { Icon: MdAddCall, text: "+232 72 001365 / +232 88 075019" },
+  { Icon: MdOutlineMail, text: "timelessbeautyandcosmetics@gmail.com" },
+  { Icon: MdLocationPin, text: "No. 8 Torwama Road-Bo, Sierra Leone" },
+];
+
 const Footer = () => {
   return (
-    <div className="bg-gray-900 cursor-pointer text-white">
-      <div className="px-4 sm:px-10 md:px-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-14 py-6">
-          {/* Brand & Social Media */}
-          <div className="gap-4">
-            <div className="text-sm">
-              <img className="w-20 pb-4 " src="/tlogo.png" alt="logo" />
-              <p className="text-sm pb-4 ">
-                Discover <span className="font-bold">TIMELESS,</span> where
-                every drop tells a story. Our curated scents capture the essence
-                of a cherished memory, bottling the past, present, and future
-                into an unforgettable experience. Indulge your senses.
-              </p>
-              <ul className="flex gap-4 text-xl pt-2 justify-center md:justify-start">
-                <li>
-                  <FaFacebookF
-                    acebook
-                    className="hover:text-pink-700 transition-colors"
-                  />
-                </li>
-                <li>
-                  <FaInstagram className="hover:text-pink-700 transition-colors" />
-                </li>
-                <li>
-                  <FaTwitter className="hover:text-pink-700 transition-colors" />
-                </li>
-                <li>
-                  <FaTiktok className="hover:text-pink-700 transition-colors" />
-                </li>
-              </ul>
+    <footer className="bg-gray-950 text-gray-400 font-['Jost',sans-serif]">
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Jost:wght@300;400;500&display=swap');`}</style>
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-16 pt-16 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr] gap-12">
+          {/* Brand Column */}
+          <div className="flex flex-col gap-5">
+            <div className="flex items-center gap-3">
+              <img
+                src="/tlogo.png"
+                alt="Timeless"
+                className="w-10 h-10 object-contain opacity-90"
+              />
+              <span
+                style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                className="text-white text-xl font-light tracking-wider"
+              >
+                Timeless
+              </span>
+            </div>
+            <p className="text-sm leading-relaxed text-gray-500 max-w-xs">
+              Discover{" "}
+              <span className="text-gray-300 font-medium">TIMELESS</span>, where
+              every drop tells a story. Our curated scents capture the essence
+              of cherished memories — bottling the past, present, and future
+              into an unforgettable experience.
+            </p>
+            <div className="flex gap-3 mt-1">
+              {SOCIALS.map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 border border-gray-700 rounded-full flex items-center justify-center text-gray-500 hover:border-pink-500 hover:text-pink-500 transition-all duration-300"
+                >
+                  <Icon size={13} />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Navigation, Support, Contact */}
-          <div className="md:col-span-3 ">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-20 px-20">
-              {/* Navigation */}
-              <div className="text-sm">
-                <p className="font-bold text-lg pb-3">Navigation</p>
-                <ul className="space-y-4">
-                  <li>
-                    <a href="#" className="hover:text-pink-700">
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-pink-700">
-                      News
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-pink-700">
-                      Blogs
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-pink-700">
-                      Contact Us
-                    </a>
-                  </li>
-                </ul>
-              </div>
+          {/* Navigation */}
+          <div>
+            <p className="text-[0.65rem] tracking-[0.25em] uppercase text-gray-600 mb-5">
+              Navigate
+            </p>
+            <ul className="flex flex-col gap-3">
+              {NAV.map(({ label, to }) => (
+                <li key={label}>
+                  <Link
+                    to={to}
+                    className="text-sm text-gray-400 hover:text-pink-400 transition-colors duration-200"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-              {/* Support */}
-              <div className="text-sm mt-6 sm:mt-0">
-                <p className="font-bold text-lg pb-3">Support</p>
-                <ul className="space-y-4">
-                  <li>
-                    <a href="#" className="hover:text-pink-700">
-                      Help
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-pink-700">
-                      FAQ
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-pink-700">
-                      Terms
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-pink-700">
-                      Privacy
-                    </a>
-                  </li>
-                </ul>
-              </div>
+          {/* Support */}
+          <div>
+            <p className="text-[0.65rem] tracking-[0.25em] uppercase text-gray-600 mb-5">
+              Support
+            </p>
+            <ul className="flex flex-col gap-3">
+              {SUPPORT.map(({ label, to }) => (
+                <li key={label}>
+                  <Link
+                    to={to}
+                    className="text-sm text-gray-400 hover:text-pink-400 transition-colors duration-200"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-              {/* Contact */}
-              <div className="text-sm mt-6 sm:mt-0">
-                <p className="font-bold text-lg pb-3">Contact</p>
-                <ul className="space-y-4">
-                  <li className="flex gap-2 items-start">
-                    <MdAddCall className="mt-1 flex-shrink-0" />
-                    +232 72 001365/+232 88 075019
-                  </li>
-                  <li className="flex gap-2 items-start">
-                    <MdOutlineMail className="mt-1 flex-shrink-0" />
-                    timelessbeautyandcosmetics@gmail.com
-                  </li>
-                  <li className="flex gap-2 items-start">
-                    <MdLocationPin className="mt-1 flex-shrink-0" />
-                    No. 8 Torwama Road-Bo, Sierra Leone
-                  </li>
-                </ul>
+          {/* Contact */}
+          <div>
+            <p className="text-[0.65rem] tracking-[0.25em] uppercase text-gray-600 mb-5">
+              Contact Us
+            </p>
+            <ul className="flex flex-col gap-4">
+              {CONTACT.map(({ Icon, text }, i) => (
+                <li
+                  key={i}
+                  className="flex items-start gap-3 text-sm text-gray-500"
+                >
+                  <Icon className="text-pink-600 mt-0.5 shrink-0 text-base" />
+                  <span className="leading-relaxed">{text}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Newsletter */}
+            <div className="mt-8">
+              <p className="text-[0.65rem] tracking-[0.25em] uppercase text-gray-600 mb-3">
+                Newsletter
+              </p>
+              <div className="flex">
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  className="flex-1 bg-gray-900 border border-gray-700 border-r-0 rounded-l-full px-4 py-2.5 text-sm text-gray-300 placeholder-gray-600 focus:outline-none focus:border-pink-600 transition-colors"
+                />
+                <button className="bg-pink-700 hover:bg-pink-600 text-white text-[0.65rem] tracking-widest uppercase px-4 rounded-r-full transition-colors duration-300 shrink-0">
+                  Join
+                </button>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Copyright section */}
-      <div className="border-t border-pink-500 pt-4 pb-4 text-center text-xs sm:text-sm text-gray-900 bg-white">
-        &copy; {new Date().getFullYear()} Timeless Perfume. All rights reserved.
+        {/* Divider with brand quote */}
+        <div className="mt-14 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            className="text-gray-600 text-sm italic"
+          >
+            "Where timeless elegance meets modern allure."
+          </p>
+          <p className="text-xs text-gray-600 text-center">
+            © {new Date().getFullYear()} Timeless Beauty & Cosmetics. All rights
+            reserved.
+          </p>
+        </div>
       </div>
-    </div>
+    </footer>
   );
 };
 

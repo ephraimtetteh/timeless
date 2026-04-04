@@ -1,231 +1,257 @@
-import React, { useState } from "react";
-import { FiLock, FiLogIn, FiMail } from "react-icons/fi";
-import { Link } from "react-router-dom";
-// import { Login } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
+// Login.jsx — luxury split-screen authentication
+import { useState } from "react";
+import { FiLock, FiMail, FiEye, FiEyeOff } from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
 
-// props
-const FormInput = ({ id, label, type = "text", value, onChange, Icon }) => (
-  <div className="mb-6">
-    <label
-      htmlFor={id}
-      className="block text-sm font-medium text-gray-700 mb-2"
-    >
-      {label}
-    </label>
-    <div className="relative rounded-lg shadow-sm">
-      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-        <Icon className="h-5 w-5 text-pink-600" aria-hidden="true" />
-      </div>
-      <input
-        id={id}
-        name={id}
-        type={type}
-        value={value}
-        onChange={onChange}
-        required
-        className="block w-full rounded-lg border-0 py-3 pl-10 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 transition duration-150 ease-in-out"
-        placeholder={label}
-      />
-    </div>
-  </div>
-);
+const Login = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [errorMsg, setErrorMsg] = useState("");
 
-/**
- * Main Login Form Component with Image Sidebar
- */
-const App = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const handleChange = (e) =>
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setMessage("");
+    setStatus("loading");
+    setErrorMsg("");
 
-    // Simulate an API call
-    setTimeout(() => {
-      setIsLoading(false);
-      // Basic validation check
-      if (
-        formData.email === "user@example.com" &&
-        formData.password === "password"
-      ) {
-        setMessage({
-          type: "success",
-          text: "Login successful! Redirecting...",
-        });
-      } else if (formData.email && formData.password) {
-        setMessage({
-          type: "error",
-          text: "Invalid credentials. Please try again.",
-        });
-      } else {
-        setMessage({
-          type: "error",
-          text: "Please enter both email and password.",
-        });
-      }
-    }, 1500);
+    // Simulate API call — replace with real auth
+    await new Promise((r) => setTimeout(r, 1400));
+
+    if (
+      formData.email === "user@example.com" &&
+      formData.password === "password"
+    ) {
+      setStatus("success");
+      setTimeout(() => navigate("/"), 1200);
+    } else if (formData.email && formData.password) {
+      setStatus("error");
+      setErrorMsg("Invalid email or password. Please try again.");
+    } else {
+      setStatus("error");
+      setErrorMsg("Please enter your email and password.");
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4 sm:p-6 font-inter">
-      {/* Container Card */}
-      <div className="w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden">
-        <div className="grid lg:grid-cols-2">
+    <div className="min-h-screen flex font-['Jost',sans-serif] bg-[#faf8f6]">
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap');`}</style>
 
-          {/* Image */}
-          <div className="hidden lg:block">
+      {/* Left — Image Panel */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gray-900">
+        <img
+          src="/Perfume1.jpg"
+          alt="Timeless Fragrance"
+          className="w-full h-full object-cover opacity-80"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-900/40 via-transparent to-black/50" />
+
+        {/* Overlay content */}
+        <div className="absolute inset-0 flex flex-col justify-between p-14 text-white">
+          <div className="flex items-center gap-3">
             <img
-              className="h-full w-full object-cover"
-              src="/Perfume1.jpg"
-              alt="image"
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = "/Perfume1.jpg";
-              }}
+              src="/tlogo.png"
+              alt="Timeless"
+              className="w-10 h-10 object-contain"
             />
+            <span
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
+              className="text-xl font-light tracking-wider"
+            >
+              Timeless
+            </span>
+          </div>
+          <div>
+            <p className="text-[0.65rem] tracking-[0.3em] uppercase text-pink-300 mb-4">
+              Welcome Back
+            </p>
+            <h2
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
+              className="text-5xl font-light leading-tight text-white mb-4"
+            >
+              Every scent
+              <br />
+              <em>tells your story.</em>
+            </h2>
+            <p className="text-white/60 text-sm max-w-xs leading-relaxed">
+              Sign in to access your wishlist, track orders, and discover new
+              arrivals curated just for you.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Right — Form Panel */}
+      <div className="flex-1 flex items-center justify-center px-6 py-16 lg:px-16">
+        <div className="w-full max-w-md">
+          {/* Mobile logo */}
+          <div className="flex items-center gap-2 mb-10 lg:hidden">
+            <img src="/tlogo.png" alt="Timeless" className="w-9" />
+            <span
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
+              className="text-xl text-gray-800 font-medium"
+            >
+              Timeless
+            </span>
           </div>
 
-          {/* 2. Login Form */}
-          <div className="p-8 sm:p-12 md:p-16 lg:p-14 xl:p-20 flex flex-col justify-center">
-            <div className="mb-10 text-center lg:text-left">
-              <h2 className="text-4xl font-extrabold text-pink-700 tracking-tight mb-2">
-                Welcome Back
-              </h2>
-              <p className="text-gray-500 text-lg">
-                Sign in to continue to your dashboard.
-              </p>
+          <div className="mb-8">
+            <p className="text-[0.65rem] tracking-[0.3em] uppercase text-pink-500 mb-2">
+              Sign In
+            </p>
+            <h1
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
+              className="text-4xl text-gray-900 font-light"
+            >
+              Welcome back
+            </h1>
+            <p className="text-gray-400 text-sm mt-2">
+              Enter your details to continue.
+            </p>
+          </div>
+
+          {/* Status message */}
+          {status === "success" && (
+            <div className="mb-6 px-4 py-3 bg-green-50 border border-green-200 rounded-xl text-sm text-green-700 flex items-center gap-2">
+              <span>✓</span> Login successful — redirecting…
+            </div>
+          )}
+          {status === "error" && (
+            <div className="mb-6 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600">
+              {errorMsg}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            {/* Email */}
+            <div>
+              <label className="text-[0.7rem] tracking-widest uppercase text-gray-500 mb-2 block">
+                Email
+              </label>
+              <div className="relative">
+                <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-pink-400 text-sm" />
+                <input
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="you@example.com"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-800 bg-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
+                />
+              </div>
             </div>
 
-            {/* Message Box */}
-            {message.text && (
-              <div
-                className={`p-3 mb-6 rounded-lg text-sm transition duration-300 ${
-                  message.type === "success"
-                    ? "bg-green-100 text-green-700 border border-green-300"
-                    : "bg-red-100 text-red-700 border border-red-300"
-                }`}
-                role="alert"
-              >
-                {message.text}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <FormInput
-                id="email"
-                label="Email Address"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                Icon={FiMail}
-              />
-
-              <FormInput
-                id="password"
-                label="Password"
-                type="password"
-                value={formData.password}
-                onChange={handleChange}
-                Icon={FiLock}
-              />
-
-              {/* Options Row */}
-              <div className="flex items-center justify-between pt-2">
-                <div className="flex items-center">
-                  <input
-                    id="remember-me"
-                    name="remember-me"
-                    type="checkbox"
-                    className="h-4 w-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500"
-                  />
-                  <label
-                    htmlFor="remember-me"
-                    className="ml-2 block text-sm text-gray-900"
-                  >
-                    Remember me
-                  </label>
-                </div>
-
-                <div className="text-sm">
-             
-                  <Link
-                    to="/forgot-password"
-                    className="font-medium text-pink-600 hover:text-pink-500 transition duration-150 ease-in-out"
-                  >
-                    Forgot your password?
-                  </Link>
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <div>
+            {/* Password */}
+            <div>
+              <label className="text-[0.7rem] tracking-widest uppercase text-gray-500 mb-2 block">
+                Password
+              </label>
+              <div className="relative">
+                <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-pink-400 text-sm" />
+                <input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  placeholder="••••••••"
+                  className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl text-sm text-gray-800 bg-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-400 transition-all"
+                />
                 <button
-                  type="submit"
-                  disabled={isLoading}
-                  className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-md text-sm font-medium text-white bg-pink-600 hover:bg-pink-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-pink-500 transition-colors"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
-                  {isLoading ? (
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                  ) : (
-                    <FiLogIn className="w-5 h-5 mr-2" />
-                  )}
-                  {isLoading ? "Loging in..." : "  Login"}
+                  {showPassword ? <FiEyeOff size={15} /> : <FiEye size={15} />}
                 </button>
               </div>
-            </form>
-
-            {/* Signup Link */}
-            <div className="mt-8 text-center">
-              <p className="text-sm text-gray-600">
-                Don't have an account?
-           
-                <Link
-                  to="/Signup"
-                  className="font-medium text-pink-600 hover:text-pink-500"
-                >
-                  Create an Account
-                </Link>
-              </p>
             </div>
+
+            {/* Remember + Forgot */}
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={remember}
+                  onChange={(e) => setRemember(e.target.checked)}
+                  className="w-4 h-4 rounded border-gray-300 text-pink-600 focus:ring-pink-400"
+                />
+                <span className="text-sm text-gray-500">Remember me</span>
+              </label>
+              <Link
+                to="/forgot-password"
+                className="text-[0.75rem] text-pink-600 hover:text-pink-800 transition-colors"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={status === "loading" || status === "success"}
+              className="w-full py-3.5 bg-pink-700 hover:bg-pink-800 disabled:opacity-60 disabled:cursor-not-allowed text-white text-[0.75rem] tracking-[0.2em] uppercase font-medium rounded-full transition-all duration-300 flex items-center justify-center gap-2 mt-1"
+            >
+              {status === "loading" ? (
+                <>
+                  <svg
+                    className="animate-spin h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8z"
+                    />
+                  </svg>
+                  Signing in…
+                </>
+              ) : status === "success" ? (
+                "✓ Signed in"
+              ) : (
+                "Sign In"
+              )}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="flex items-center gap-4 my-6">
+            <div className="flex-1 h-px bg-gray-100" />
+            <span className="text-[0.65rem] text-gray-300 tracking-widest uppercase">
+              or
+            </span>
+            <div className="flex-1 h-px bg-gray-100" />
           </div>
+
+          {/* Signup link */}
+          <p className="text-center text-sm text-gray-400">
+            No account yet?{" "}
+            <Link
+              to="/signup"
+              className="text-pink-600 hover:text-pink-800 font-medium transition-colors"
+            >
+              Create one
+            </Link>
+          </p>
         </div>
       </div>
     </div>
   );
 };
 
-export default App;
+export default Login;

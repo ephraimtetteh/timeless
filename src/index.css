@@ -5,3 +5,173 @@
 body {
   font-family: "Outfit", sans-serif;
 }
+
+/* ========= checkout ========== */
+.cart {
+  margin-top: 100px;
+  width: 80%;
+  margin: auto;
+}
+
+.cart-item {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  grid-column-gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.cart-item img {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+}
+
+.cart_items_title {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
+  align-items: center;
+  color: grey;
+  font-size: max(1vw, 12px);
+}
+
+.cart_items_item {
+  margin: 10px 0;
+  color: black;
+}
+
+.cart_items_item img {
+  width: 50px;
+}
+
+.cart hr {
+  height: 1px;
+  background-color: #e2e2e2;
+  border: none;
+}
+
+.cross {
+  cursor: pointer;
+}
+
+.cart_buttom {
+  margin-top: 80px;
+  display: flex;
+  justify-content: space-between;
+  gap: max(12vw, 20px);
+}
+
+.cart_total {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart_total_details {
+  display: flex;
+  justify-content: space-between;
+  color: #555;
+}
+
+.cart_total hr {
+  margin: 10px 0;
+}
+
+.cart_total button {
+  border: none;
+  color: white;
+  background-color: tomato;
+  width: max(20vw, 200px);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cart_promocode {
+  flex: 1;
+}
+
+.cart_promocode p {
+  color: #555;
+}
+
+.cart_promocode_input {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eaeaea;
+  border-radius: 4px;
+}
+
+.cart_promocode_input input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 10px;
+}
+
+.cart_promocode_input button {
+  width: max(10vw, 150px);
+  padding: 12px 5px;
+  background-color: black;
+  border: none;
+  color: white;
+  border-radius: 4px;
+}
+
+@media  (max-width: 750px) {
+  .cart_buttom {
+      flex-direction: column-reverse;
+  }
+
+  .cart_promocode {
+      justify-content: start;
+  }
+}
+
+
+/* =================== place order  */
+.place_order {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 50px;
+  margin-top: 100px;
+  width: 80%;
+  margin: auto;
+}
+
+.place_order_left {
+  width: 100%;
+  max-width: max(30%, 500px);
+}
+
+.place_order_left .title {
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 50px;
+}
+
+.place_order_left input {
+  margin-bottom: 15px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #c5c5c5;
+  border-radius: 4px;
+  outline-color: tomato;
+}
+
+.place_order_left .multi_fields {
+  display: flex;
+  gap: 10px;
+}
+
+.place_order_right {
+  width: 100%;
+  max-width: max(40%, 500px);
+}
+
+.place_order .cart_total button {
+  margin-top: 30px;
+}
