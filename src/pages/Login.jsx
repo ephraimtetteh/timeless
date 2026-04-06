@@ -1,47 +1,42 @@
-// Login.jsx — luxury split-screen authentication
-import { useState } from "react";
+// Login.jsx — wired to Redux authSlice + real backend
+import { useState, useEffect } from "react";
 import { FiLock, FiMail, FiEye, FiEyeOff } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, clearAuthError } from "../lib/features/auth/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { status, error, isAuthenticated } = useSelector((state) => state.auth);
+
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(false);
-  const [status, setStatus] = useState("idle"); // idle | loading | success | error
-  const [errorMsg, setErrorMsg] = useState("");
+
+  // Redirect on successful login
+  useEffect(() => {
+    if (isAuthenticated) navigate("/");
+  }, [isAuthenticated, navigate]);
+
+  // Clear error when unmounting
+  useEffect(() => () => dispatch(clearAuthError()), [dispatch]);
 
   const handleChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setStatus("loading");
-    setErrorMsg("");
-
-    // Simulate API call — replace with real auth
-    await new Promise((r) => setTimeout(r, 1400));
-
-    if (
-      formData.email === "user@example.com" &&
-      formData.password === "password"
-    ) {
-      setStatus("success");
-      setTimeout(() => navigate("/"), 1200);
-    } else if (formData.email && formData.password) {
-      setStatus("error");
-      setErrorMsg("Invalid email or password. Please try again.");
-    } else {
-      setStatus("error");
-      setErrorMsg("Please enter your email and password.");
-    }
+    dispatch(loginUser(formData));
   };
+
+  const isLoading = status === "loading";
 
   return (
     <div className="min-h-screen flex font-['Jost',sans-serif] bg-[#faf8f6]">
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap');`}</style>
 
-      {/* Left — Image Panel */}
+      {/* ── Left image panel ──────────────────────────── */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gray-900">
         <img
           src="/Perfume1.jpg"
@@ -49,8 +44,6 @@ const Login = () => {
           className="w-full h-full object-cover opacity-80"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-pink-900/40 via-transparent to-black/50" />
-
-        {/* Overlay content */}
         <div className="absolute inset-0 flex flex-col justify-between p-14 text-white">
           <div className="flex items-center gap-3">
             <img
@@ -85,7 +78,7 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Right — Form Panel */}
+      {/* ── Right form panel ──────────────────────────── */}
       <div className="flex-1 flex items-center justify-center px-6 py-16 lg:px-16">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
@@ -114,15 +107,10 @@ const Login = () => {
             </p>
           </div>
 
-          {/* Status message */}
-          {status === "success" && (
-            <div className="mb-6 px-4 py-3 bg-green-50 border border-green-200 rounded-xl text-sm text-green-700 flex items-center gap-2">
-              <span>✓</span> Login successful — redirecting…
-            </div>
-          )}
-          {status === "error" && (
+          {/* Error message */}
+          {error && (
             <div className="mb-6 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600">
-              {errorMsg}
+              {error}
             </div>
           )}
 
@@ -195,10 +183,10 @@ const Login = () => {
             {/* Submit */}
             <button
               type="submit"
-              disabled={status === "loading" || status === "success"}
+              disabled={isLoading}
               className="w-full py-3.5 bg-pink-700 hover:bg-pink-800 disabled:opacity-60 disabled:cursor-not-allowed text-white text-[0.75rem] tracking-[0.2em] uppercase font-medium rounded-full transition-all duration-300 flex items-center justify-center gap-2 mt-1"
             >
-              {status === "loading" ? (
+              {isLoading ? (
                 <>
                   <svg
                     className="animate-spin h-4 w-4"
@@ -221,15 +209,12 @@ const Login = () => {
                   </svg>
                   Signing in…
                 </>
-              ) : status === "success" ? (
-                "✓ Signed in"
               ) : (
                 "Sign In"
               )}
             </button>
           </form>
 
-          {/* Divider */}
           <div className="flex items-center gap-4 my-6">
             <div className="flex-1 h-px bg-gray-100" />
             <span className="text-[0.65rem] text-gray-300 tracking-widest uppercase">
@@ -238,7 +223,6 @@ const Login = () => {
             <div className="flex-1 h-px bg-gray-100" />
           </div>
 
-          {/* Signup link */}
           <p className="text-center text-sm text-gray-400">
             No account yet?{" "}
             <Link

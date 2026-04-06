@@ -1,19 +1,11 @@
-// PlaceOrder.jsx — Stripe payment + EmailJS confirmation emails
+// PlaceOrder.jsx — uses backend API for Stripe + Nodemailer emails
 //
 // Setup:
-//   npm install @stripe/stripe-js @stripe/react-stripe-js emailjs-com
+//   npm install @stripe/stripe-js @stripe/react-stripe-js axios
 //
-// Environment variables (.env):
+// .env (frontend):
 //   VITE_STRIPE_PUBLIC_KEY=pk_test_...
-//   VITE_EMAILJS_SERVICE_ID=service_...
-//   VITE_EMAILJS_TEMPLATE_USER=template_...
-//   VITE_EMAILJS_TEMPLATE_ADMIN=template_...
-//   VITE_EMAILJS_PUBLIC_KEY=...
-//   VITE_ADMIN_EMAIL=admin@yourstore.com
-//
-// EmailJS template variables used:
-//   {{to_name}}, {{to_email}}, {{order_items}}, {{order_total}},
-//   {{delivery_address}}, {{order_id}}
+//   VITE_API_URL=http://localhost:5000/api
 
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -25,66 +17,11 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import emailjs from "emailjs-com";
+import axios from "axios";
 import { clearCart } from "../lib/features/cart/cartSlice";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-
-// ─── Email helpers ────────────────────────────────────────────────────────────
-
-const sendEmails = async ({ form, cartItems, total, delivery, orderId }) => {
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  const userTemplate = import.meta.env.VITE_EMAILJS_TEMPLATE_USER;
-  const adminTemplate = import.meta.env.VITE_EMAILJS_TEMPLATE_ADMIN;
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-  const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
-
-  const orderItemsText = cartItems
-    .map(
-      (i) =>
-        `${i.title} × ${i.amount} — GH₵ ${(i.price * i.amount).toFixed(2)}`,
-    )
-    .join("\n");
-
-  const deliveryAddress = `${form.street}, ${form.city}, ${form.state} ${form.zip}, ${form.country}`;
-  const grandTotal = (total + delivery).toFixed(2);
-
-  const sharedParams = {
-    order_id: orderId,
-    order_items: orderItemsText,
-    order_total: `GH₵ ${grandTotal}`,
-    delivery_address: deliveryAddress,
-  };
-
-  // Email to customer
-  await emailjs.send(
-    serviceId,
-    userTemplate,
-    {
-      ...sharedParams,
-      to_name: `${form.firstName} ${form.lastName}`,
-      to_email: form.email,
-    },
-    publicKey,
-  );
-
-  // Email to admin
-  await emailjs.send(
-    serviceId,
-    adminTemplate,
-    {
-      ...sharedParams,
-      to_name: "Admin",
-      to_email: adminEmail,
-      customer_name: `${form.firstName} ${form.lastName}`,
-      customer_email: form.email,
-      customer_phone: form.phone,
-    },
-    publicKey,
-  );
-};
-
-// ─── Payment form (inner) ────────────────────────────────────────────────────
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -106,42 +43,43 @@ const PaymentForm = () => {
     country: "",
     phone: "",
   });
-
-  const [status, setStatus] = useState("idle"); // idle | processing | success | error
+  const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) return;
-
     setStatus("processing");
     setErrorMessage("");
 
     try {
-      // 1. Create payment intent on your backend
-      //    Your server endpoint should create a PaymentIntent and return client_secret
-      const response = await fetch("/api/create-payment-intent", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: Math.round(grandTotal * 100), // Stripe uses smallest currency unit
-          currency: "ghs",
-          metadata: {
-            customer_email: form.email,
-            customer_name: `${form.firstName} ${form.lastName}`,
+      const { data } = await axios.post(
+        `${API}/payments/create-intent`,
+        {
+          items: cartItems.map((i) => ({
+            productId: i.id,
+            title: i.title,
+            img: i.img,
+            price: i.price,
+            amount: i.amount,
+          })),
+          deliveryFee: delivery,
+          deliveryAddress: {
+            street: form.street,
+            city: form.city,
+            state: form.state,
+            zip: form.zip,
+            country: form.country,
           },
-        }),
-      });
+        },
+        { withCredentials: true },
+      );
 
-      if (!response.ok) throw new Error("Failed to initiate payment");
+      const { clientSecret, orderId } = data;
 
-      const { clientSecret } = await response.json();
-
-      // 2. Confirm payment with Stripe
       const { error, paymentIntent } = await stripe.confirmCardPayment(
         clientSecret,
         {
@@ -150,6 +88,7 @@ const PaymentForm = () => {
             billing_details: {
               name: `${form.firstName} ${form.lastName}`,
               email: form.email,
+              phone: form.phone,
               address: {
                 line1: form.street,
                 city: form.city,
@@ -164,21 +103,18 @@ const PaymentForm = () => {
 
       if (error) throw new Error(error.message);
 
-      // 3. Send confirmation emails
-      await sendEmails({
-        form,
-        cartItems,
-        total,
-        delivery,
-        orderId: paymentIntent.id,
-      });
+      await axios.post(
+        `${API}/payments/confirm`,
+        { paymentIntentId: paymentIntent.id },
+        { withCredentials: true },
+      );
 
-      // 4. Clear cart and redirect
       dispatch(clearCart());
-      navigate("/order-success", { state: { orderId: paymentIntent.id } });
+      navigate("/order-success", { state: { orderId } });
     } catch (err) {
-      console.error(err);
-      setErrorMessage(err.message || "Payment failed. Please try again.");
+      setErrorMessage(
+        err.response?.data?.message || err.message || "Payment failed.",
+      );
       setStatus("error");
     }
   };
@@ -188,12 +124,10 @@ const PaymentForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="grid lg:grid-cols-2 gap-10">
-      {/* Left — Delivery Info */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
         <h2 className="text-xl font-bold text-gray-800 mb-6">
           Delivery Information
         </h2>
-
         <div className="grid grid-cols-2 gap-3 mb-3">
           <input
             name="firstName"
@@ -271,13 +205,11 @@ const PaymentForm = () => {
           onChange={handleChange}
           placeholder="Phone number"
           required
-          className={`${inputClass} mb-0`}
+          className={inputClass}
         />
       </div>
 
-      {/* Right — Order Summary + Payment */}
       <div className="flex flex-col gap-4">
-        {/* Order Summary */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
           <h2 className="text-xl font-bold text-gray-800 mb-4">
             Order Summary
@@ -309,7 +241,6 @@ const PaymentForm = () => {
           </div>
         </div>
 
-        {/* Card Payment */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
           <h2 className="text-xl font-bold text-gray-800 mb-4">Payment</h2>
           <div className="border border-gray-200 rounded-xl px-4 py-3 mb-4">
@@ -366,15 +297,8 @@ const PaymentForm = () => {
               `Pay GH₵ ${grandTotal.toFixed(2)}`
             )}
           </button>
-          <p className="text-xs text-gray-400 text-center mt-3 flex items-center justify-center gap-1">
-            <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fillRule="evenodd"
-                d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Secured by Stripe · 256-bit SSL encryption
+          <p className="text-xs text-gray-400 text-center mt-3">
+            🔒 Secured by Stripe · 256-bit SSL
           </p>
         </div>
       </div>
@@ -382,19 +306,13 @@ const PaymentForm = () => {
   );
 };
 
-// ─── Wrapper with Stripe Elements provider ────────────────────────────────────
-
-const PlaceOrder = () => {
-  return (
-    <main className="max-w-6xl mx-auto px-4 py-12 mt-16">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">
-        Place Your Order
-      </h1>
-      <Elements stripe={stripePromise}>
-        <PaymentForm />
-      </Elements>
-    </main>
-  );
-};
+const PlaceOrder = () => (
+  <main className="max-w-6xl mx-auto px-4 py-12 mt-16">
+    <h1 className="text-3xl font-bold text-gray-800 mb-8">Place Your Order</h1>
+    <Elements stripe={stripePromise}>
+      <PaymentForm />
+    </Elements>
+  </main>
+);
 
 export default PlaceOrder;

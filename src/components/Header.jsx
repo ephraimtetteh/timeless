@@ -8,9 +8,9 @@ import { calculateTotal } from "../lib/features/cart/cartSlice";
 
 const NAV_LINKS = [
   { label: "Bestsellers", to: "/products" },
-  { label: "New Scents", to: "/new" },
-  { label: "Featured", to: "/featured" },
-  { label: "About Us", to: "/about-us" },
+  // { label: "New Scents", to: "/new" },
+  // { label: "Featured", to: "/featured" },
+  { label: "About Us", to: "/about" },
 ];
 
 const Header = () => {
