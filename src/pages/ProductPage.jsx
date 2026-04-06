@@ -4,8 +4,8 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
 import { decrease, increase, removeItem } from "../lib/features/cart/cartSlice";
-import { productData } from "../assets/assets";
 import { Link } from "react-router-dom";
+import { productData } from "../constants/products";
 
 const CATEGORIES = ["All", "Men", "Women", "Unisex"];
 const SORT_OPTIONS = ["Latest", "Price: Low to High", "Price: High to Low"];
@@ -189,8 +189,11 @@ const ProductPage = () => {
                     </p>
                   )}
                   <p className="text-sm font-semibold text-pink-700 mt-1">
-                    GH₵ {Number(product.price).toLocaleString()}
+                    Le {Number(product.price).toLocaleString()}
                   </p>
+                  {/* <p className="text-sm font-semibold text-pink-700 mt-1">
+                     {(product.size)}
+                  </p> */}
                 </div>
               );
             })}

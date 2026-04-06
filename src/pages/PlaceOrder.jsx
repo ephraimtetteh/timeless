@@ -20,7 +20,7 @@ import {
 import axios from "axios";
 import { clearCart } from "../lib/features/cart/cartSlice";
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(import.meta.env.STRIPE_SECRET_KEY);
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const PaymentForm = () => {
