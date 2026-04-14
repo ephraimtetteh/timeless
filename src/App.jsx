@@ -22,6 +22,20 @@ import { OrderSuccess } from "./pages/OrderSuccess";
 
 // import AllProduct from "./pages/AllProduct";
 
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminOverview from "./pages/admin/AdminOverview";
+import AdminOrders from "./pages/admin/AdminOrders";
+import AdminProducts from "./pages/admin/AdminProducts";
+import AdminCustomers from "./pages/admin/AdminCustomers";
+
+const StoreLayout = ({ children }) => (
+  <>
+    <Header />
+    <main>{children}</main>
+    <Footer />
+  </>
+);
+
 
 
 
@@ -40,30 +54,88 @@ function App() {
    
     return (
       <BrowserRouter>
-        <Header />
         <main>
           <Routes>
             {/* Public */}
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<ProductPage />} />
-            <Route path="/product/:id" element={<SingleProductPage />} />
-            <Route path="/about-us" element={<AboutUs />} />
+            <Route
+              path="/"
+              element={
+                <StoreLayout>
+                  <Home />
+                </StoreLayout>
+              }
+            />
+            <Route
+              path="/products"
+              element={
+                <StoreLayout>
+                  <ProductPage />
+                </StoreLayout>
+              }
+            />
+            <Route
+              path="/product/:id"
+              element={
+                <StoreLayout>
+                  <SingleProductPage />
+                </StoreLayout>
+              }
+            />
+            <Route
+              path="/about-us"
+              element={
+                <StoreLayout>
+                  <AboutUs />
+                </StoreLayout>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-   
-            {/* Protected — must be logged in */}
+
+            {/* Protected — logged in */}
             <Route element={<ProtectedRoute />}>
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/place-order" element={<PlaceOrder />} />
-              <Route path="/order-success" element={<OrderSuccess />} />
+              <Route
+                path="/checkout"
+                element={
+                  <StoreLayout>
+                    <Checkout />
+                  </StoreLayout>
+                }
+              />
+              <Route
+                path="/place-order"
+                element={
+                  <StoreLayout>
+                    <PlaceOrder />
+                  </StoreLayout>
+                }
+              />
+              <Route
+                path="/order-success"
+                element={
+                  <StoreLayout>
+                    <OrderSuccess />
+                  </StoreLayout>
+                }
+              />
+            </Route>
+
+
+            {/* Admin only */}
+            <Route element={<ProtectedRoute adminOnly={true} />}>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminOverview />} />
+                <Route path="orders" element={<AdminOrders />} />
+                <Route path="products" element={<AdminProducts />} />
+                <Route path="customers" element={<AdminCustomers />} />
+              </Route>
             </Route>
           </Routes>
         </main>
-        <Footer />
       </BrowserRouter>
-    )
+    );
   }
    
 
