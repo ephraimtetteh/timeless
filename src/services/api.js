@@ -1,7 +1,7 @@
 // src/services/api.js — Axios instance + all API calls
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -72,6 +72,7 @@ export const productAPI = {
   create: (data) => api.post("/products", data),
   update: (id, data) => api.patch(`/products/${id}`, data),
   remove: (id) => api.delete(`/products/${id}`),
+  addReview: (id, data) => api.post(`/products/${id}/reviews`, data),
 };
 
 // ─── Orders ────────────────────────────────────────────────────────────

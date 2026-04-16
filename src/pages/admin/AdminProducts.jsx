@@ -1,47 +1,165 @@
 // src/pages/admin/AdminProducts.jsx
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { adminAPI } from "../../services/adminAPI";
-import { FiPlus, FiEdit2, FiTrash2, FiX, FiCheck } from "react-icons/fi";
+import {
+  FiPlus,
+  FiEdit2,
+  FiTrash2,
+  FiX,
+  FiCheck,
+  FiUpload,
+  FiImage,
+} from "react-icons/fi";
+import imgUrl from "../../utils/imgUrl";
+
+const CATEGORIES = ["Men", "Women", "Unisex"];
 
 const EMPTY_FORM = {
   title: "",
   text: "",
   description: "",
   price: "",
-  img: "",
   category: "Unisex",
   type: "",
   size: "",
   stock: "",
+  isFeatured: false,
 };
 
-const CATEGORIES = ["Men", "Women", "Unisex"];
+// ── Image upload preview ──────────────────────────────────
+const ImageUploader = ({ currentImg, onFileChange }) => {
+  const inputRef = useRef(null);
+  const [preview, setPreview] = useState(currentImg || null);
+  const [dragging, setDragging] = useState(false);
 
-// ── Modal ─────────────────────────────────────────────────
+  const handleFile = (file) => {
+    if (!file) return;
+    const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    if (!allowed.includes(file.type)) {
+      alert("Only JPEG, PNG and WebP images are allowed.");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Image must be under 5MB.");
+      return;
+    }
+    setPreview(URL.createObjectURL(file));
+    onFileChange(file);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setDragging(false);
+    handleFile(e.dataTransfer.files[0]);
+  };
+
+  return (
+    <div>
+      <label className="text-[0.65rem] tracking-widest uppercase text-gray-600 mb-2 block">
+        Product Image
+      </label>
+
+      {/* Drop zone */}
+      <div
+        onClick={() => inputRef.current?.click()}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDragging(true);
+        }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={handleDrop}
+        className={`
+          relative border-2 border-dashed rounded-xl overflow-hidden cursor-pointer
+          transition-all duration-200 flex flex-col items-center justify-center gap-2
+          ${dragging ? "border-pink-500 bg-pink-900/10" : "border-white/10 hover:border-white/20"}
+          ${preview ? "h-40" : "h-32"}
+        `}
+      >
+        {preview ? (
+          <>
+            <img
+              src={preview}
+              alt="Preview"
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
+            />
+            <div className="relative z-10 flex flex-col items-center gap-1 text-white">
+              <FiUpload size={18} />
+              <span className="text-[0.65rem] tracking-wide">
+                Click or drop to replace
+              </span>
+            </div>
+          </>
+        ) : (
+          <>
+            <FiImage size={24} className="text-gray-600" />
+            <p className="text-[0.7rem] text-gray-500">
+              Click or drag image here
+            </p>
+            <p className="text-[0.6rem] text-gray-700">
+              JPEG, PNG or WebP · max 5MB
+            </p>
+          </>
+        )}
+      </div>
+
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/jpeg,image/jpg,image/png,image/webp"
+        className="hidden"
+        onChange={(e) => handleFile(e.target.files[0])}
+      />
+    </div>
+  );
+};
+
+// ── Product Modal ─────────────────────────────────────────
 const ProductModal = ({ product, onClose, onSave }) => {
-  const [form, setForm] = useState(product || EMPTY_FORM);
+  const [form, setForm] = useState(
+    product
+      ? {
+          title: product.title || "",
+          text: product.text || "",
+          description: product.description || "",
+          price: product.price || "",
+          category: product.category || "Unisex",
+          type: product.type || "",
+          size: product.size || "",
+          stock: product.stock ?? "",
+          isFeatured: product.isFeatured || false,
+        }
+      : EMPTY_FORM,
+  );
+  const [imageFile, setImageFile] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
-
   const isEdit = !!product?._id;
 
-  const handleChange = (e) =>
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm((p) => ({ ...p, [name]: type === "checkbox" ? checked : value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
+    if (!imageFile && !isEdit) {
+      setError("Please upload a product image.");
+      return;
+    }
+
     setSaving(true);
     try {
-      const payload = {
-        ...form,
-        price: Number(form.price),
-        stock: Number(form.stock),
-      };
+      // Use FormData so we can send the file
+      const fd = new FormData();
+      Object.entries(form).forEach(([k, v]) => fd.append(k, v));
+      if (imageFile) fd.append("image", imageFile);
+
       if (isEdit) {
-        await adminAPI.updateProduct(product._id, payload);
+        await adminAPI.updateProduct(product._id, fd);
       } else {
-        await adminAPI.createProduct(payload);
+        await adminAPI.createProduct(fd);
       }
       onSave();
     } catch (err) {
@@ -57,10 +175,11 @@ const ProductModal = ({ product, onClose, onSave }) => {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(4px)" }}
+      style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
     >
-      <div className="bg-[#1a1a1a] border border-white/10 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/5">
+      <div className="bg-[#1a1a1a] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[92vh] overflow-y-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 sticky top-0 bg-[#1a1a1a] z-10">
           <h3 className="text-white font-light">
             {isEdit ? "Edit Product" : "New Product"}
           </h3>
@@ -72,15 +191,24 @@ const ProductModal = ({ product, onClose, onSave }) => {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="p-6">
           {error && (
-            <div className="bg-red-900/20 border border-red-900/50 text-red-400 text-sm px-4 py-2 rounded-xl">
+            <div className="mb-4 bg-red-900/20 border border-red-900/50 text-red-400 text-sm px-4 py-2.5 rounded-xl">
               {error}
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-3">
-            <div className="col-span-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Image uploader — full width */}
+            <div className="sm:col-span-2">
+              <ImageUploader
+                currentImg={product?.img}
+                onFileChange={setImageFile}
+              />
+            </div>
+
+            {/* Title */}
+            <div className="sm:col-span-2">
               <label className="text-[0.65rem] tracking-widest uppercase text-gray-600 mb-1.5 block">
                 Title *
               </label>
@@ -93,8 +221,10 @@ const ProductModal = ({ product, onClose, onSave }) => {
                 className={inputClass}
               />
             </div>
+
+            {/* Price + Stock */}
             <div>
-              <label className="text-[0.65rem] tracking-widest uppercase text-gray-600 mb-1.5 block">
+              <label className="text-[0.65rem] tracking-widests uppercase text-gray-600 mb-1.5 block">
                 Price (GH₵) *
               </label>
               <input
@@ -110,7 +240,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
               />
             </div>
             <div>
-              <label className="text-[0.65rem] tracking-widest uppercase text-gray-600 mb-1.5 block">
+              <label className="text-[0.65rem] tracking-widests uppercase text-gray-600 mb-1.5 block">
                 Stock
               </label>
               <input
@@ -123,8 +253,10 @@ const ProductModal = ({ product, onClose, onSave }) => {
                 className={inputClass}
               />
             </div>
+
+            {/* Category + Type */}
             <div>
-              <label className="text-[0.65rem] tracking-widest uppercase text-gray-600 mb-1.5 block">
+              <label className="text-[0.65rem] tracking-widests uppercase text-gray-600 mb-1.5 block">
                 Category
               </label>
               <select
@@ -139,7 +271,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
               </select>
             </div>
             <div>
-              <label className="text-[0.65rem] tracking-widest uppercase text-gray-600 mb-1.5 block">
+              <label className="text-[0.65rem] tracking-widests uppercase text-gray-600 mb-1.5 block">
                 Type
               </label>
               <input
@@ -150,8 +282,10 @@ const ProductModal = ({ product, onClose, onSave }) => {
                 className={inputClass}
               />
             </div>
+
+            {/* Size + Featured */}
             <div>
-              <label className="text-[0.65rem] tracking-widest uppercase text-gray-600 mb-1.5 block">
+              <label className="text-[0.65rem] tracking-widests uppercase text-gray-600 mb-1.5 block">
                 Size
               </label>
               <input
@@ -162,46 +296,55 @@ const ProductModal = ({ product, onClose, onSave }) => {
                 className={inputClass}
               />
             </div>
-            <div>
-              <label className="text-[0.65rem] tracking-widest uppercase text-gray-600 mb-1.5 block">
-                Image URL
-              </label>
+            <div className="flex items-center gap-3 pt-5">
               <input
-                name="img"
-                value={form.img}
+                type="checkbox"
+                id="isFeatured"
+                name="isFeatured"
+                checked={form.isFeatured}
                 onChange={handleChange}
-                placeholder="/products/image.jpg"
-                className={inputClass}
+                className="w-4 h-4 rounded accent-pink-600 cursor-pointer"
               />
+              <label
+                htmlFor="isFeatured"
+                className="text-sm text-gray-400 cursor-pointer"
+              >
+                Feature on homepage
+              </label>
             </div>
-            <div className="col-span-2">
+
+            {/* Short description */}
+            <div className="sm:col-span-2">
               <label className="text-[0.65rem] tracking-widests uppercase text-gray-600 mb-1.5 block">
-                Short Description
+                Short Subtitle
               </label>
               <input
                 name="text"
                 value={form.text}
                 onChange={handleChange}
-                placeholder="Brief subtitle"
+                placeholder="One-line description shown on product cards"
                 className={inputClass}
               />
             </div>
-            <div className="col-span-2">
-              <label className="text-[0.65rem] tracking-widest uppercase text-gray-600 mb-1.5 block">
+
+            {/* Full description */}
+            <div className="sm:col-span-2">
+              <label className="text-[0.65rem] tracking-widests uppercase text-gray-600 mb-1.5 block">
                 Full Description
               </label>
               <textarea
                 name="description"
                 value={form.description}
                 onChange={handleChange}
-                rows={3}
+                rows={4}
                 placeholder="Full product description..."
                 className={`${inputClass} resize-none`}
               />
             </div>
           </div>
 
-          <div className="flex gap-3 pt-2">
+          {/* Actions */}
+          <div className="flex gap-3 mt-6">
             <button
               type="button"
               onClick={onClose}
@@ -251,11 +394,11 @@ const ProductModal = ({ product, onClose, onSave }) => {
   );
 };
 
-// ── Delete confirm ────────────────────────────────────────
+// ── Delete Confirm ────────────────────────────────────────
 const DeleteConfirm = ({ product, onCancel, onConfirm }) => (
   <div
     className="fixed inset-0 z-50 flex items-center justify-center p-4"
-    style={{ background: "rgba(0,0,0,0.7)", backdropFilter: "blur(4px)" }}
+    style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(4px)" }}
   >
     <div className="bg-[#1a1a1a] border border-red-900/30 rounded-2xl p-6 max-w-sm w-full text-center">
       <div className="w-12 h-12 bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -284,12 +427,12 @@ const DeleteConfirm = ({ product, onCancel, onConfirm }) => (
   </div>
 );
 
-// ── Main page ─────────────────────────────────────────────
+// ── Main Page ─────────────────────────────────────────────
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
   const [pagination, setPagination] = useState({ total: 0, page: 1, pages: 1 });
   const [loading, setLoading] = useState(true);
-  const [modal, setModal] = useState(null); // null | "create" | product object
+  const [modal, setModal] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState("all");
 
@@ -334,7 +477,6 @@ const AdminProducts = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      {/* Modals */}
       {modal && (
         <ProductModal
           product={modal === "create" ? null : modal}
@@ -367,7 +509,7 @@ const AdminProducts = () => {
       </div>
 
       {/* Category filter */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         {["all", ...CATEGORIES].map((c) => (
           <button
             key={c}
@@ -396,6 +538,8 @@ const AdminProducts = () => {
             ))}
           </div>
         </div>
+      ) : products.length === 0 ? (
+        <div className="text-center py-16 text-gray-700">No products found</div>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {products.map((product) => (
@@ -407,16 +551,16 @@ const AdminProducts = () => {
               <div className="aspect-square bg-[#252525] relative overflow-hidden">
                 {product.img ? (
                   <img
-                    src={product.img}
+                    src={imgUrl(product.img)}
                     alt={product.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-700 text-4xl">
-                    🌸
+                  <div className="w-full h-full flex items-center justify-center text-gray-700">
+                    <FiImage size={32} />
                   </div>
                 )}
-                {/* Actions overlay */}
+                {/* Overlay actions */}
                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                   <button
                     onClick={() => setModal(product)}
@@ -431,26 +575,29 @@ const AdminProducts = () => {
                     <FiTrash2 size={14} />
                   </button>
                 </div>
-                {/* Category badge */}
                 <span className="absolute top-2 left-2 text-[0.55rem] tracking-widest uppercase bg-black/60 text-gray-300 px-2 py-1 rounded-full">
                   {product.category}
                 </span>
+                {product.isFeatured && (
+                  <span className="absolute top-2 right-2 text-[0.55rem] bg-yellow-400/90 text-yellow-900 font-bold px-2 py-1 rounded-full">
+                    Featured
+                  </span>
+                )}
               </div>
-
               {/* Info */}
               <div className="p-3">
                 <p className="text-sm text-gray-200 truncate">
                   {product.title}
                 </p>
                 <p className="text-[0.65rem] text-gray-600 truncate mt-0.5">
-                  {product.type}
+                  {product.type || product.size}
                 </p>
                 <div className="flex items-center justify-between mt-2">
                   <p className="text-pink-400 text-sm font-medium">
                     GH₵ {Number(product.price).toLocaleString()}
                   </p>
                   <span
-                    className={`text-[0.6rem] tracking-wide px-2 py-0.5 rounded-full ${
+                    className={`text-[0.6rem] px-2 py-0.5 rounded-full ${
                       product.stock > 0
                         ? "bg-emerald-900/30 text-emerald-500"
                         : "bg-red-900/30 text-red-500"
