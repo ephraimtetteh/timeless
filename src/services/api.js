@@ -1,60 +1,58 @@
-// src/services/api.js — Axios instance + all API calls
+// src/services/api.js
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
+// ── Authenticated instance (sends cookies + Bearer token) ─
+// Used for: auth, orders, payments, admin, cart checkout
 const api = axios.create({
   baseURL: BASE_URL,
-  withCredentials: true, // sends httpOnly cookie on every request
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
+  withCredentials: true,
+  headers: { "Content-Type": "application/json", Accept: "application/json" },
   timeout: 15000,
 });
 
-// ── Request interceptor — attach Bearer token if present ─
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
+// ── Public instance (no credentials) ──────────────────────
+// Used for: GET /products, GET /products/:id
+// withCredentials: false avoids the CORS wildcard restriction on public routes
+const publicApi = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: false,
+  headers: { "Content-Type": "application/json", Accept: "application/json" },
+  timeout: 15000,
+});
 
-// ── Response interceptor — surface errors cleanly ────────
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    // Network error / CORS block — no response object at all
-    if (!error.response) {
-      console.error(
-        "Network error — is the backend running on",
-        BASE_URL,
-        "?",
-        error.message,
-      );
-      return Promise.reject(
-        new Error("Cannot reach the server. Please check your connection."),
-      );
-    }
+// ── Request interceptor — attach Bearer token ─────────────
+const attachToken = (config) => {
+  const token = localStorage.getItem("token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+};
+api.interceptors.request.use(attachToken, (e) => Promise.reject(e));
 
-    // Auto-logout on 401
-    if (error.response.status === 401) {
-      localStorage.removeItem("token");
-      if (window.location.pathname !== "/login") {
-        window.location.href = "/login";
-      }
-    }
+// ── Response interceptor — handle errors ──────────────────
+const handleError = (error) => {
+  if (!error.response) {
+    console.error(
+      "Network error — is the backend running on",
+      BASE_URL,
+      "?",
+      error.message,
+    );
+    return Promise.reject(
+      new Error("Cannot reach the server. Please check your connection."),
+    );
+  }
+  if (error.response.status === 401) {
+    localStorage.removeItem("token");
+    if (window.location.pathname !== "/login") window.location.href = "/login";
+  }
+  return Promise.reject(error);
+};
+api.interceptors.response.use((r) => r, handleError);
+publicApi.interceptors.response.use((r) => r, handleError);
 
-    return Promise.reject(error);
-  },
-);
-
-// ─── Auth ──────────────────────────────────────────────────────────────
+// ─── Auth (credentialed) ───────────────────────────────────
 export const authAPI = {
   register: (data) => api.post("/auth/register", data),
   login: (data) => api.post("/auth/login", data),
@@ -65,17 +63,18 @@ export const authAPI = {
     api.post("/auth/reset-password", { token, password }),
 };
 
-// ─── Products ──────────────────────────────────────────────────────────
+// ─── Products (public reads, credentialed writes) ──────────
 export const productAPI = {
-  getAll: (params) => api.get("/products", { params }),
-  getById: (id) => api.get(`/products/${id}`),
+  getAll: (params) => publicApi.get("/products", { params }),
+  getById: (id) => publicApi.get(`/products/${id}`),
+  addReview: (id, data) => api.post(`/products/${id}/reviews`, data),
+  // Admin writes
   create: (data) => api.post("/products", data),
   update: (id, data) => api.patch(`/products/${id}`, data),
   remove: (id) => api.delete(`/products/${id}`),
-  addReview: (id, data) => api.post(`/products/${id}/reviews`, data),
 };
 
-// ─── Orders ────────────────────────────────────────────────────────────
+// ─── Orders ───────────────────────────────────────────────
 export const orderAPI = {
   getMine: () => api.get("/orders/mine"),
   getById: (id) => api.get(`/orders/${id}`),
@@ -83,7 +82,7 @@ export const orderAPI = {
   updateStatus: (id, status) => api.patch(`/orders/${id}/status`, { status }),
 };
 
-// ─── Payments ──────────────────────────────────────────────────────────
+// ─── Payments ─────────────────────────────────────────────
 export const paymentAPI = {
   createIntent: (payload) => api.post("/payments/create-intent", payload),
   confirm: (paymentIntentId) =>

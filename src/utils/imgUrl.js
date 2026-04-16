@@ -1,24 +1,17 @@
 // src/utils/imgUrl.js
-// Converts a stored image path like "/products/file.png" into a full URL.
+// Builds a full image URL from a stored path like "/products/file.png"
 //
-// In development the Vite proxy forwards /products/* to the backend,
-// so a plain "/products/file.png" works in <img src>.
+// Dev:  Vite proxy forwards /products/* to localhost backend — no prefix needed
+// Prod: VITE_MEDIA_URL = https://timelessbackend.onrender.com (no trailing slash)
 //
-// In production, set VITE_MEDIA_URL to your CDN or backend domain,
-// e.g. VITE_MEDIA_URL=https://api.yoursite.com
-//
-// Usage:
-//   import { imgUrl } from "../utils/imgUrl"
-//   <img src={imgUrl(product.img)} />
+// Usage: <img src={imgUrl(product.img)} />
 
-const MEDIA_BASE = import.meta.env.VITE_MEDIA_URL || "";
+const MEDIA_BASE = (import.meta.env.VITE_MEDIA_URL || "").replace(/\/$/, "");
 
-export const imgUrl = (path) => {
-  if (!path) return "/placeholder.jpg";
-  // Already an absolute URL (http/https) — return as-is
-  if (path.startsWith("http")) return path;
-  // Prepend media base if set, otherwise rely on Vite proxy (dev) or same origin (prod)
-  return `${MEDIA_BASE}${path}`;
+export const imgUrl = (p) => {
+  if (!p) return "/placeholder.jpg";
+  if (p.startsWith("http")) return p; // already absolute
+  return `${MEDIA_BASE}${p}`; // e.g. https://api.com/products/file.png
 };
 
 export default imgUrl;
